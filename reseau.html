@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Réseau — Espace technique · Inetum Rennes</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700;900&family=Shippori+Mincho:wght@500;700;800&family=Inter:wght@400;500;600&display=swap');
+
+:root{
+  --void: #0d0521;
+  --ink: #150a2e;
+  --surface: #1c1038;
+  --line: rgba(228, 217, 247, 0.09);
+  --blood: #a855f7;
+  --blood-bright: #c084fc;
+  --blood-dim: rgba(168, 85, 247, 0.14);
+  --cloud: #e4d9f7;
+  --ocre: #818cf8;
+  --text: #e9e4f5;
+  --text-dim: #a99fc4;
+  --display: 'Shippori Mincho', serif;
+  --gothic: 'Zen Kaku Gothic New', sans-serif;
+  --body: 'Inter', sans-serif;
+}
+
+*{ margin:0; padding:0; box-sizing:border-box; }
+html{ scroll-behavior:smooth; }
+
+body{
+  background:var(--void);
+  color:var(--text);
+  font-family:var(--body);
+  line-height:1.7;
+  overflow-x:hidden;
+}
+
+::selection{ background:var(--blood); color:var(--text); }
+:focus-visible{ outline:2px solid var(--blood-bright); outline-offset:4px; }
+
+#gl{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+#glFallback{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  pointer-events:none;
+}
+#glFallback svg{ width:min(70vmin, 640px); opacity:0.45; }
+body.no-webgl #gl{ display:none; }
+body.no-webgl #glFallback{ display:flex; }
+
+body::after{
+  content:'';
+  position:fixed;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  opacity:0.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+}
+
+#cursorTrail{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  z-index:9999;
+  mix-blend-mode:screen;
+}
+@media (hover:none){
+  #cursorTrail{ display:none; }
+}
+
+/* ============ HUD trafic — ticker de logs façon console réseau ============ */
+#hud{
+  position:fixed;
+  right:26px;
+  bottom:24px;
+  z-index:60;
+  pointer-events:none;
+  font-family:'JetBrains Mono', 'Courier New', monospace;
+  font-size:10.5px;
+  line-height:1.8;
+  color:rgba(228, 217, 247,0.5);
+  text-align:right;
+  letter-spacing:0.03em;
+}
+#hud .hud-line{
+  opacity:0;
+  transform:translateX(10px);
+  animation:hudIn 0.35s ease forwards;
+}
+#hud .hud-line b{
+  color:var(--blood-bright);
+  font-weight:500;
+}
+#hud .hud-line.ok b{ color:var(--ocre); }
+@keyframes hudIn{
+  to{ opacity:1; transform:translateX(0); }
+}
+@media (max-width:880px){
+  #hud{ display:none; }
+}
+
+/* ============ Nav ============ */
+nav{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:100;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:26px 5vw;
+  mix-blend-mode:difference;
+}
+.nav-mark{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:22px;
+  letter-spacing:0.05em;
+  color:var(--text);
+  text-decoration:none;
+}
+.nav-mark span{ color:var(--blood-bright); }
+.nav-links{
+  display:flex;
+  gap:36px;
+  list-style:none;
+  font-family:var(--gothic);
+  font-size:12px;
+  letter-spacing:0.22em;
+  text-transform:uppercase;
+}
+.nav-links a{
+  color:var(--text);
+  text-decoration:none;
+  position:relative;
+  padding-bottom:3px;
+}
+.nav-links a::after{
+  content:'';
+  position:absolute;
+  left:0; bottom:0;
+  width:0; height:1px;
+  background:var(--blood-bright);
+  transition:width 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.nav-links a:hover::after{ width:100%; }
+
+/* ============ Hero ============ */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  padding:0 5vw;
+  z-index:2;
+}
+.hero-content{ max-width:720px; }
+.hero-kicker{
+  font-family:var(--gothic);
+  font-size:12px;
+  letter-spacing:0.35em;
+  text-transform:uppercase;
+  color:var(--blood-bright);
+  margin-bottom:28px;
+  display:flex;
+  align-items:center;
+  gap:16px;
+  opacity:0;
+  animation:riseIn 1s cubic-bezier(0.16,1,0.3,1) 0.2s forwards;
+}
+.hero-kicker::before{
+  content:'';
+  width:44px;
+  height:1px;
+  background:var(--blood);
+}
+.hero h1{
+  font-family:var(--display);
+  font-weight:800;
+  font-size:clamp(40px, 7vw, 88px);
+  line-height:1.06;
+  letter-spacing:-0.015em;
+  margin-bottom:14px;
+}
+.hero h1 .word{
+  display:inline-block;
+  overflow:hidden;
+  vertical-align:bottom;
+}
+.hero h1 .word span{
+  display:inline-block;
+  transform:translateY(110%);
+  animation:riseWord 1.1s cubic-bezier(0.16,1,0.3,1) forwards;
+}
+.hero h1 .word:nth-child(1) span{ animation-delay:0.3s; }
+.hero h1 .word:nth-child(2) span{ animation-delay:0.44s; }
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(110deg, var(--blood-bright) 25%, #f0abfc 45%, var(--blood-bright) 65%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;
+  background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shimmer 5.5s linear infinite;
+}
+@keyframes shimmer{ to{ background-position:-220% 0; } }
+@keyframes riseWord{ to{ transform:translateY(0); } }
+@keyframes riseIn{
+  from{ opacity:0; transform:translateY(24px); }
+  to{ opacity:1; transform:translateY(0); }
+}
+.hero-sub{
+  font-size:clamp(15px, 1.6vw, 18px);
+  color:var(--text-dim);
+  max-width:500px;
+  margin:24px 0 40px;
+  opacity:0;
+  animation:riseIn 1s cubic-bezier(0.16,1,0.3,1) 0.8s forwards;
+}
+.hero-sub strong{ color:var(--cloud); font-weight:500; }
+
+/* légende topologie */
+.topo-legend{
+  display:flex;
+  gap:26px;
+  flex-wrap:wrap;
+  font-family:var(--gothic);
+  font-size:11.5px;
+  letter-spacing:0.12em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  opacity:0;
+  animation:riseIn 1s cubic-bezier(0.16,1,0.3,1) 1s forwards;
+}
+.topo-legend span{
+  display:flex;
+  align-items:center;
+  gap:9px;
+}
+.dot{
+  width:8px; height:8px;
+  border-radius:2px;
+}
+.dot.core{ background:var(--blood-bright); box-shadow:0 0 8px rgba(192, 132, 252,0.8); }
+.dot.access{ background:var(--ocre); box-shadow:0 0 8px rgba(129, 140, 248,0.6); }
+.dot.packet{ background:#e9d5ff; border-radius:50%; animation:blink 1.4s infinite; }
+@keyframes blink{ 0%,100%{opacity:1;} 50%{opacity:0.25;} }
+
+.scroll-hint{
+  position:absolute;
+  bottom:36px;
+  left:5vw;
+  font-family:var(--gothic);
+  font-size:10.5px;
+  letter-spacing:0.3em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  display:flex;
+  align-items:center;
+  gap:12px;
+  opacity:0;
+  animation:riseIn 1s ease 1.6s forwards;
+}
+.scroll-hint::after{
+  content:'';
+  width:1px;
+  height:38px;
+  background:linear-gradient(var(--blood-bright), transparent);
+  animation:scrollPulse 1.8s ease-in-out infinite;
+}
+@keyframes scrollPulse{
+  0%,100%{ transform:scaleY(1); opacity:1; }
+  50%{ transform:scaleY(0.4); opacity:0.4; }
+}
+
+/* ============ Sections ============ */
+section{ position:relative; z-index:2; }
+.section-solid{ background:var(--void); }
+.section-inner{
+  max-width:1080px;
+  margin:0 auto;
+  padding:120px 5vw;
+}
+.section-label{
+  display:flex;
+  align-items:center;
+  gap:20px;
+  margin-bottom:56px;
+}
+.section-label .jp{
+  font-family:var(--display);
+  font-size:clamp(30px, 4vw, 46px);
+  font-weight:800;
+  color:var(--blood-dim);
+  -webkit-text-stroke:1px rgba(192, 132, 252,0.5);
+}
+.section-label .idx{
+  font-family:var(--gothic);
+  font-size:11px;
+  letter-spacing:0.25em;
+  color:var(--text-dim);
+  margin-left:auto;
+}
+.engrave{ overflow:visible; display:block; }
+.engrave text{
+  font-family:var(--gothic);
+  font-weight:900;
+  font-size:34px;
+  letter-spacing:0.02em;
+  fill:var(--text);
+  fill-opacity:0;
+  stroke:var(--cloud);
+  stroke-width:1.1;
+  stroke-dasharray:520;
+  stroke-dashoffset:520;
+}
+.reveal.in .engrave text{
+  animation:engraveStroke 1.5s cubic-bezier(0.4,0,0.2,1) forwards,
+            engraveFill 0.7s ease 1.05s forwards;
+}
+@keyframes engraveStroke{ to{ stroke-dashoffset:0; } }
+@keyframes engraveFill{ to{ fill-opacity:1; } }
+
+.reveal{
+  opacity:0;
+  transform:translateY(36px);
+  transition:opacity 0.9s cubic-bezier(0.16,1,0.3,1), transform 0.9s cubic-bezier(0.16,1,0.3,1);
+}
+.reveal.in{ opacity:1; transform:translateY(0); }
+
+/* ============ Domaines réseau ============ */
+.domains{
+  display:grid;
+  grid-template-columns:repeat(3, 1fr);
+  gap:20px;
+}
+.domain{
+  background:var(--ink);
+  border:1px solid var(--line);
+  padding:28px 24px;
+  clip-path:polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 0 100%);
+  transition:border-color 0.3s, transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.domain:hover{ border-color:rgba(192, 132, 252,0.4); transform:translateY(-4px); }
+.domain svg{ width:34px; height:34px; margin-bottom:16px; opacity:0.55; }
+.domain h3{
+  font-family:var(--gothic);
+  font-weight:700;
+  font-size:16px;
+  margin-bottom:8px;
+}
+.domain p{ font-size:13px; color:var(--text-dim); }
+
+/* ============ Baie documentaire ============ */
+.bay{
+  display:grid;
+  grid-template-columns:0.9fr 1.1fr;
+  gap:44px;
+  align-items:start;
+}
+.dropzone{
+  border:1px dashed rgba(228, 217, 247,0.22);
+  padding:44px 28px;
+  text-align:center;
+  cursor:pointer;
+  transition:all 0.3s;
+  clip-path:polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 20px 100%, 0 calc(100% - 20px));
+  background:var(--ink);
+}
+.dropzone:hover, .dropzone.dragover{
+  border-color:var(--blood-bright);
+  background:rgba(168, 85, 247,0.06);
+}
+.dropzone .dz-mark{
+  width:54px;
+  margin:0 auto 16px;
+  transition:transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+.dropzone:hover .dz-mark{ transform:rotate(120deg); }
+.dropzone p{
+  font-family:var(--gothic);
+  font-weight:700;
+  font-size:14px;
+  letter-spacing:0.04em;
+}
+.dropzone .sub{
+  font-family:var(--body);
+  font-weight:400;
+  font-size:12.5px;
+  color:var(--text-dim);
+  margin-top:6px;
+}
+.bay-note{
+  margin-top:16px;
+  font-size:11.5px;
+  color:var(--text-dim);
+  font-family:var(--gothic);
+  letter-spacing:0.06em;
+}
+.bay-note b{ color:var(--ocre); font-weight:700; }
+
+.doc-list{ display:flex; flex-direction:column; gap:10px; }
+.doc-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:var(--ink);
+  border:1px solid var(--line);
+  padding:13px 16px;
+  transition:border-color 0.25s;
+  animation:slideIn 0.35s ease;
+}
+@keyframes slideIn{
+  from{ opacity:0; transform:translateX(-10px); }
+  to{ opacity:1; transform:translateX(0); }
+}
+.doc-item:hover{ border-color:rgba(192, 132, 252,0.4); }
+.doc-ext{
+  font-family:var(--gothic);
+  font-weight:900;
+  font-size:10px;
+  background:var(--blood);
+  color:var(--text);
+  padding:8px 9px;
+  text-transform:uppercase;
+  min-width:44px;
+  text-align:center;
+  clip-path:polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 0 100%);
+}
+.doc-info{ flex:1; min-width:0; }
+.doc-name{
+  font-weight:600;
+  font-size:14px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.doc-meta{
+  font-family:var(--gothic);
+  font-size:11px;
+  color:var(--text-dim);
+  letter-spacing:0.06em;
+}
+.doc-actions{ display:flex; gap:6px; }
+.doc-btn{
+  border:1px solid var(--line);
+  background:transparent;
+  width:32px; height:32px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:var(--text-dim);
+  cursor:pointer;
+  transition:all 0.2s;
+}
+.doc-btn:hover{ background:var(--blood); border-color:var(--blood); color:var(--text); }
+.doc-btn svg{ width:15px; height:15px; }
+.docs-empty{
+  text-align:center;
+  color:var(--text-dim);
+  font-family:var(--gothic);
+  font-size:12.5px;
+  letter-spacing:0.08em;
+  padding:26px 0;
+  border:1px solid var(--line);
+  background:var(--ink);
+}
+
+/* ============ Journal ============ */
+.journal-area{
+  width:100%;
+  min-height:220px;
+  background:var(--ink);
+  border:1px solid var(--line);
+  padding:22px;
+  font-family:var(--body);
+  font-size:14.5px;
+  line-height:1.8;
+  color:var(--text);
+  resize:vertical;
+  transition:border-color 0.3s;
+  clip-path:polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%);
+}
+.journal-area:focus{ outline:none; border-color:var(--blood-bright); }
+.journal-status{
+  font-family:var(--gothic);
+  font-size:11px;
+  letter-spacing:0.15em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  margin-top:10px;
+  text-align:right;
+  min-height:16px;
+}
+
+footer{
+  border-top:1px solid var(--line);
+  padding:36px 5vw;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:12px;
+  font-family:var(--gothic);
+  font-size:11px;
+  letter-spacing:0.2em;
+  text-transform:uppercase;
+  color:var(--text-dim);
+  position:relative;
+  z-index:2;
+  background:var(--void);
+}
+footer .mark{ color:var(--blood-bright); }
+footer a{ color:var(--text-dim); text-decoration:none; }
+footer a:hover{ color:var(--blood-bright); }
+
+@media (max-width:880px){
+  .nav-links{ display:none; }
+  .domains{ grid-template-columns:1fr; }
+  .bay{ grid-template-columns:1fr; }
+  .section-inner{ padding:90px 6vw; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{ animation-duration:0.001ms !important; animation-delay:0s !important; transition-duration:0.001ms !important; }
+  html{ scroll-behavior:auto; }
+  .hero h1 .word span{ transform:none; }
+  .hero-kicker, .hero-sub, .topo-legend, .scroll-hint{ opacity:1; }
+  .reveal{ opacity:1; transform:none; }
+  .engrave text{ stroke-dashoffset:0; fill-opacity:1; animation:none; }
+  #cursorTrail, #hud{ display:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- Tomoe de référence — même construction que la vitrine -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <g id="tomoeShape">
+      <path d="M 0,-75 A 75,75 0 0 1 57.45,48.21 Q 44,38 13.59,6.34 A 15,15 0 0 0 0,-15 Z"
+            fill="#a855f7" stroke="#e9d5ff" stroke-width="1.5" stroke-linejoin="round"/>
+      <circle cx="0" cy="-45" r="30" fill="#a855f7" stroke="#e9d5ff" stroke-width="1.5"/>
+      <circle cx="0" cy="-45" r="10" fill="#0d0521"/>
+    </g>
+    <g id="mitsudomoe">
+      <use href="#tomoeShape"/>
+      <use href="#tomoeShape" transform="rotate(120)"/>
+      <use href="#tomoeShape" transform="rotate(240)"/>
+    </g>
+  </defs>
+</svg>
+
+<canvas id="gl" aria-hidden="true"></canvas>
+<div id="glFallback" aria-hidden="true">
+  <svg viewBox="-160 -160 320 320">
+    <circle r="150" fill="none" stroke="rgba(168, 85, 247,0.3)" stroke-width="1" stroke-dasharray="2 8"/>
+    <use href="#mitsudomoe" transform="scale(1.1)"/>
+  </svg>
+</div>
+<canvas id="cursorTrail" aria-hidden="true"></canvas>
+<div id="hud" aria-hidden="true"></div>
+
+<nav>
+  <a href="index.html" class="nav-mark">紅<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="vitrine-3d.html">← Vitrine</a></li>
+    <li><a href="#domaines">Domaines</a></li>
+    <li><a href="#baie">Baie</a></li>
+    <li><a href="#journal">Journal</a></li>
+  </ul>
+</nav>
+
+<!-- ============ HERO — topologie 3D ============ -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-kicker">Espace technique — Réseau · Inetum Rennes</div>
+    <h1>
+      <span class="word"><span>Le&nbsp;réseau,</span></span><br>
+      <span class="word"><span>en&nbsp;<em>profondeur</em>.</span></span>
+    </h1>
+    <p class="hero-sub">
+      En fond : une <strong>baie technique en 3D</strong> — panneau de brassage, deux
+      commutateurs 24 ports, routeur et serveur, câblés vers leurs équipements terminaux.
+      Le trafic circule en temps réel. Cet espace centralise ma
+      <strong>documentation technique</strong> d'alternant réseau chez <strong>Inetum</strong>.
+    </p>
+    <div class="topo-legend">
+      <span><i class="dot core"></i>Baie · switches &amp; routeur</span>
+      <span><i class="dot access"></i>Équipements terminaux</span>
+      <span><i class="dot packet"></i>Trafic sur câbles</span>
+    </div>
+  </div>
+  <div class="scroll-hint">Défiler</div>
+</header>
+
+<!-- ============ DOMAINES ============ -->
+<section id="domaines" class="section-solid">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="jp">網</span>
+      <svg class="engrave" viewBox="0 0 240 46" width="200" height="40" role="heading" aria-level="2" aria-label="Domaines"><text x="0" y="34">Domaines</text></svg>
+      <span class="idx">01 / 03</span>
+    </div>
+
+    <div class="domains">
+      <div class="domain reveal">
+        <svg viewBox="-80 -80 160 160"><use href="#mitsudomoe" transform="scale(0.85)"/></svg>
+        <h3>Commutation</h3>
+        <p>VLAN, trunking 802.1Q, agrégation de liens, spanning-tree. Le niveau 2 propre et segmenté.</p>
+      </div>
+      <div class="domain reveal">
+        <svg viewBox="-80 -80 160 160"><use href="#mitsudomoe" transform="scale(0.85)"/></svg>
+        <h3>Routage</h3>
+        <p>Routage statique et dynamique, inter-VLAN, passerelles et plans d'adressage IPv4 maîtrisés.</p>
+      </div>
+      <div class="domain reveal">
+        <svg viewBox="-80 -80 160 160"><use href="#mitsudomoe" transform="scale(0.85)"/></svg>
+        <h3>Services</h3>
+        <p>DHCP, DNS, NAT — les services qui font vivre l'infrastructure au quotidien.</p>
+      </div>
+      <div class="domain reveal">
+        <svg viewBox="-80 -80 160 160"><use href="#mitsudomoe" transform="scale(0.85)"/></svg>
+        <h3>Sécurité</h3>
+        <p>ACL, segmentation, VPN, durcissement des équipements. Cloisonner sans casser les usages.</p>
+      </div>
+      <div class="domain reveal">
+        <svg viewBox="-80 -80 160 160"><use href="#mitsudomoe" transform="scale(0.85)"/></svg>
+        <h3>Supervision</h3>
+        <p>Monitoring, journaux, SNMP, métrologie — voir le réseau avant qu'il ne se voie.</p>
+      </div>
+      <div class="domain reveal">
+        <svg viewBox="-80 -80 160 160"><use href="#mitsudomoe" transform="scale(0.85)"/></svg>
+        <h3>Diagnostic</h3>
+        <p>Méthode par couches, captures de trames, isolation de panne. Trouver vite, corriger proprement.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BAIE DOCUMENTAIRE ============ -->
+<section id="baie" class="section-solid">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="jp">庫</span>
+      <svg class="engrave" viewBox="0 0 420 46" width="340" height="40" role="heading" aria-level="2" aria-label="Baie documentaire"><text x="0" y="34">Baie documentaire</text></svg>
+      <span class="idx">02 / 03</span>
+    </div>
+
+    <div class="bay">
+      <div class="reveal">
+        <div class="dropzone" id="dropzone" role="button" tabindex="0" aria-label="Ajouter un document">
+          <svg class="dz-mark" viewBox="-90 -90 180 180"><use href="#mitsudomoe"/></svg>
+          <p>Déposer un document</p>
+          <div class="sub">Schémas, plans d'adressage, configs, procédures, comptes-rendus d'intervention…</div>
+        </div>
+        <input type="file" id="fileInput" multiple hidden>
+        <div class="bay-note">
+          <b>Local</b> — stockage dans le navigateur (IndexedDB), max 15 Mo par fichier.
+          Garder une copie des documents critiques ailleurs.
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="doc-list" id="docList"></div>
+        <div class="docs-empty" id="docsEmpty">Baie vide — aucun document archivé.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ JOURNAL ============ -->
+<section id="journal" class="section-solid">
+  <div class="section-inner">
+    <div class="section-label reveal">
+      <span class="jp">録</span>
+      <svg class="engrave" viewBox="0 0 520 46" width="410" height="40" role="heading" aria-level="2" aria-label="Journal d'intervention"><text x="0" y="34">Journal d'intervention</text></svg>
+      <span class="idx">03 / 03</span>
+    </div>
+
+    <div class="reveal">
+      <textarea class="journal-area" id="journalArea" placeholder="Ticket, symptôme, diagnostic, action, résultat — comme sur le terrain…"></textarea>
+      <div class="journal-status" id="journalStatus"></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span>紅 <span class="mark">/</span> espace réseau</span>
+  <a href="vitrine-3d.html">← retour vitrine</a>
+  <span>Inetum Rennes · 2026</span>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+'use strict';
+const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isCoarse = matchMedia('(pointer:coarse)').matches;
+
+/* ================================================================
+   TOPOLOGIE 3D — cœur de réseau, commutateurs, liens, paquets
+================================================================ */
+let webgl = true;
+let renderer, scene, camera, topo, radar, scanLine, scanBounds;
+let mouseX = 0, mouseY = 0, camX = 0, camY = 0;
+const leds = [];      // { mat, phase, speed, burst }
+const packets = [];   // { mesh, curve, u, speed, dir }
+const ringPool = [];  // anneaux d'arrivée réutilisés
+
+try{
+  renderer = new THREE.WebGLRenderer({
+    canvas: document.getElementById('gl'),
+    antialias: true,
+    alpha: true,
+    powerPreference: 'high-performance'
+  });
+}catch(e){
+  webgl = false;
+}
+if(!webgl || !renderer.getContext()){
+  webgl = false;
+  document.body.classList.add('no-webgl');
+}
+
+/* ---------- Matériaux partagés ---------- */
+const chassisMat = new THREE.MeshStandardMaterial({
+  color: 0x17121A, metalness: 0.5, roughness: 0.38,
+  emissive: 0x2A0407, emissiveIntensity: 0.35
+});
+const portMat = new THREE.MeshStandardMaterial({
+  color: 0x0A080C, metalness: 0.2, roughness: 0.7
+});
+const edgeMatFn = op => new THREE.LineBasicMaterial({ color: 0xE5383B, transparent: true, opacity: op });
+
+const UW = 2.05, UD = 0.85;   /* largeur / profondeur d'une unité rack */
+
+function makeChassis(h){
+  const g = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(UW, h, UD), chassisMat);
+  g.add(body);
+  g.add(new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry), edgeMatFn(0.3)));
+  return g;
+}
+
+function addLed(parent, x, y, color, statusOnly){
+  const mat = new THREE.MeshBasicMaterial({ color, transparent: true, opacity: 0.2 });
+  const led = new THREE.Mesh(new THREE.BoxGeometry(0.026, 0.02, 0.012), mat);
+  led.position.set(x, y, UD / 2 + 0.012);
+  parent.add(led);
+  leds.push({
+    mat,
+    phase: Math.random() * Math.PI * 2,
+    speed: statusOnly ? 0.8 + Math.random() * 1.2 : 1.5 + Math.random() * 4,
+    burst: !statusOnly
+  });
+}
+
+function addPortRow(parent, count, y, withLeds, ledColor){
+  const span = UW * 0.72;
+  const spacing = span / (count - 1);
+  for(let i = 0; i < count; i++){
+    const x = -span / 2 + i * spacing;
+    const port = new THREE.Mesh(new THREE.BoxGeometry(0.055, 0.045, 0.018), portMat);
+    port.position.set(x, y, UD / 2 + 0.01);
+    parent.add(port);
+    if(withLeds) addLed(parent, x, y + 0.045, ledColor, false);
+  }
+}
+
+/* Switch 24 ports : deux rangées de 12 + LEDs d'activité + LEDs statut */
+function makeSwitch(){
+  const sw = makeChassis(0.2);
+  addPortRow(sw, 12, 0.045, true, 0xE5383B);
+  addPortRow(sw, 12, -0.055, true, 0xB08948);
+  addLed(sw, UW * 0.42, 0.05, 0xE5383B, true);   /* SYS */
+  addLed(sw, UW * 0.42, -0.02, 0xB08948, true);  /* PWR */
+  return sw;
+}
+
+/* Routeur : moins de ports, poignées de rack, LEDs de statut */
+function makeRouter(){
+  const rt = makeChassis(0.28);
+  addPortRow(rt, 6, -0.05, true, 0xE5383B);
+  for(let i = 0; i < 4; i++) addLed(rt, -UW * 0.36 + i * 0.09, 0.07, 0xB08948, true);
+  /* poignées */
+  [-1, 1].forEach(s => {
+    const handle = new THREE.Mesh(
+      new THREE.BoxGeometry(0.045, 0.2, 0.045),
+      chassisMat
+    );
+    handle.position.set(s * UW * 0.46, 0, UD / 2 + 0.05);
+    rt.add(handle);
+  });
+  return rt;
+}
+
+/* Panneau de brassage : 24 ports passifs, aucune LED */
+function makePatch(){
+  const pp = makeChassis(0.15);
+  addPortRow(pp, 24, 0, false, 0);
+  return pp;
+}
+
+/* Serveur : 2U, fentes d'aération + LED d'alimentation */
+function makeServer(){
+  const sv = makeChassis(0.42);
+  for(let i = 0; i < 5; i++){
+    const vent = new THREE.Mesh(new THREE.BoxGeometry(UW * 0.5, 0.02, 0.012), portMat);
+    vent.position.set(-UW * 0.12, 0.12 - i * 0.06, UD / 2 + 0.008);
+    sv.add(vent);
+  }
+  addLed(sv, UW * 0.4, 0.12, 0xB08948, true);
+  return sv;
+}
+
+/* Point d'accès / équipement terminal au sol */
+function makeEndpoint(){
+  const ep = new THREE.Group();
+  const body = new THREE.Mesh(new THREE.BoxGeometry(0.38, 0.14, 0.28), chassisMat);
+  ep.add(body);
+  ep.add(new THREE.LineSegments(new THREE.EdgesGeometry(body.geometry), edgeMatFn(0.35)));
+  addLed(ep, 0.1, 0.02, 0xE5383B, true);
+  return ep;
+}
+
+if(webgl){
+  renderer.setPixelRatio(Math.min(devicePixelRatio || 1, 1.75));
+  renderer.setSize(innerWidth, innerHeight);
+
+  scene = new THREE.Scene();
+  scene.fog = new THREE.FogExp2(0x08070A, 0.055);
+
+  camera = new THREE.PerspectiveCamera(50, innerWidth / innerHeight, 0.1, 100);
+  camera.position.set(0, 3.2, 8.5);
+
+  scene.add(new THREE.AmbientLight(0x191218, 1.0));
+  const key = new THREE.PointLight(0xE5383B, 2.2, 26);
+  key.position.set(4, 5, 5);
+  scene.add(key);
+  const fill = new THREE.PointLight(0xB08948, 0.6, 22);
+  fill.position.set(-5, 2, -3);
+  scene.add(fill);
+
+  topo = new THREE.Group();
+  scene.add(topo);
+
+  /* ---------- Baie 42U : quatre montants + traverses ---------- */
+  const RW = 2.35, RD = 1.0, RH = 3.5;
+  const postGeo = new THREE.BoxGeometry(0.07, RH, 0.07);
+  [[-1,-1],[1,-1],[-1,1],[1,1]].forEach(([sx, sz]) => {
+    const post = new THREE.Mesh(postGeo, chassisMat);
+    post.position.set(sx * RW / 2, 0, sz * RD / 2);
+    topo.add(post);
+    topo.add((() => {
+      const e = new THREE.LineSegments(new THREE.EdgesGeometry(postGeo), edgeMatFn(0.25));
+      e.position.copy(post.position);
+      return e;
+    })());
+  });
+  [[RH / 2, 1], [-RH / 2, 1]].forEach(([y]) => {
+    const plate = new THREE.Mesh(new THREE.BoxGeometry(RW + 0.07, 0.06, RD + 0.07), chassisMat);
+    plate.position.y = y;
+    topo.add(plate);
+  });
+
+  /* ---------- Équipements empilés (haut → bas) ---------- */
+  const rackUnits = [
+    { build: makePatch, h: 0.15 },     /* panneau de brassage */
+    { build: makeSwitch, h: 0.2 },     /* switch accès A */
+    { build: makeSwitch, h: 0.2 },     /* switch accès B */
+    { build: makeRouter, h: 0.28 },    /* routeur */
+    { build: makeServer, h: 0.42 },    /* serveur */
+  ];
+  let stackY = RH / 2 - 0.35;
+  const switchYs = [];
+  rackUnits.forEach((u, idx) => {
+    stackY -= u.h / 2;
+    const dev = u.build();
+    dev.position.y = stackY;
+    topo.add(dev);
+    if(idx === 1 || idx === 2) switchYs.push(stackY);
+    stackY -= u.h / 2 + 0.09;
+  });
+
+  /* ---------- Câbles : des switches vers les équipements terminaux ---------- */
+  const FLOOR_Y = -2.2;
+  const N_EP = 6;
+  const cableMats = [
+    new THREE.MeshStandardMaterial({ color: 0x4A1218, roughness: 0.6, emissive: 0x2A0407, emissiveIntensity: 0.5 }),
+    new THREE.MeshStandardMaterial({ color: 0x3A2E1C, roughness: 0.6, emissive: 0x241A0C, emissiveIntensity: 0.5 }),
+  ];
+  for(let i = 0; i < N_EP; i++){
+    /* points d'accès répartis sur un arc face avant */
+    const a = (-0.65 + (i / (N_EP - 1)) * 1.3) * Math.PI;   /* -117° → +117° autour de +z */
+    const r = 4.4 + (i % 2) * 0.9;
+    const ex = Math.sin(a) * r;
+    const ez = Math.cos(a) * r;
+
+    const ep = makeEndpoint();
+    ep.position.set(ex, FLOOR_Y + 0.09, ez);
+    ep.rotation.y = Math.atan2(-ex, -ez);
+    topo.add(ep);
+
+    /* départ du câble : façade d'un des deux switches */
+    const swY = switchYs[i % 2];
+    const px = -UW * 0.3 + (i / (N_EP - 1)) * UW * 0.6;
+    const start = new THREE.Vector3(px, swY, UD / 2 + 0.03);
+
+    const curve = new THREE.CatmullRomCurve3([
+      start,
+      new THREE.Vector3(px * 1.4, swY - 0.75, RD / 2 + 0.75),        /* sortie + affaissement */
+      new THREE.Vector3(ex * 0.45, FLOOR_Y + 0.35, ez * 0.45 + 0.6), /* course au sol */
+      new THREE.Vector3(ex, FLOOR_Y + 0.14, ez)
+    ]);
+    const tube = new THREE.Mesh(
+      new THREE.TubeGeometry(curve, 48, 0.016, 6, false),
+      cableMats[i % 2]
+    );
+    topo.add(tube);
+
+    /* paquets circulant sur le câble */
+    const nPk = isCoarse ? 1 : 2;
+    for(let p = 0; p < nPk; p++){
+      const dir = (i + p) % 2 === 0 ? 1 : -1;
+      const col = dir === 1 ? 0xFF6B6E : 0xB08948;
+      const m = new THREE.Mesh(
+        new THREE.SphereGeometry(0.04, 8, 8),
+        new THREE.MeshBasicMaterial({
+          color: col, transparent: true, opacity: 0.95,
+          blending: THREE.AdditiveBlending, depthWrite: false
+        })
+      );
+      topo.add(m);
+      packets.push({
+        mesh: m, curve, dir,
+        u: Math.random(),
+        speed: 0.003 + Math.random() * 0.0045
+      });
+    }
+  }
+
+  /* ---------- Scan lumineux : balayage vertical sur la façade de la baie ---------- */
+  scanLine = new THREE.Mesh(
+    new THREE.PlaneGeometry(RW + 0.15, 0.03),
+    new THREE.MeshBasicMaterial({
+      color: 0xE5383B, transparent: true, opacity: 0,
+      blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide
+    })
+  );
+  scanLine.position.z = RD / 2 + 0.06;
+  topo.add(scanLine);
+  scanBounds = [-RH / 2 + 0.1, RH / 2 - 0.1];
+
+  /* sol : grille discrète */
+  const grid = new THREE.GridHelper(22, 26, 0x2A1016, 0x18101A);
+  grid.position.y = -2.2;
+  grid.material.transparent = true;
+  grid.material.opacity = 0.5;
+  scene.add(grid);
+
+  /* balayage radar sur le sol — secteur additif en rotation */
+  radar = new THREE.Mesh(
+    new THREE.CircleGeometry(9.5, 48, 0, 0.55),
+    new THREE.MeshBasicMaterial({
+      color: 0xE5383B, transparent: true, opacity: 0.045,
+      blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide
+    })
+  );
+  radar.rotation.x = -Math.PI / 2;
+  radar.position.y = -2.18;
+  scene.add(radar);
+
+  /* anneaux d'arrivée de paquets — pool réutilisé */
+  for(let i = 0; i < 14; i++){
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(0.06, 0.1, 24),
+      new THREE.MeshBasicMaterial({
+        color: 0xFF6B6E, transparent: true, opacity: 0,
+        blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide
+      })
+    );
+    ring.visible = false;
+    topo.add(ring);
+    ringPool.push({ mesh: ring, life: 0 });
+  }
+
+  /* poussière ambiante */
+  {
+    const N = isCoarse ? 100 : 220;
+    const pos = new Float32Array(N * 3);
+    for(let i = 0; i < N; i++){
+      pos[i*3]   = (Math.random() - 0.5) * 20;
+      pos[i*3+1] = (Math.random() - 0.5) * 10;
+      pos[i*3+2] = (Math.random() - 0.5) * 20;
+    }
+    const g = new THREE.BufferGeometry();
+    g.setAttribute('position', new THREE.BufferAttribute(pos, 3));
+    scene.add(new THREE.Points(g, new THREE.PointsMaterial({
+      color: 0xE5383B, size: 0.02, transparent: true, opacity: 0.4, sizeAttenuation: true
+    })));
+  }
+
+  if(innerWidth > 880) topo.position.x = 1.8;
+
+  addEventListener('resize', () => {
+    camera.aspect = innerWidth / innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(innerWidth, innerHeight);
+    topo.position.x = innerWidth > 880 ? 1.8 : 0;
+  }, { passive: true });
+
+  if(!isCoarse){
+    addEventListener('mousemove', e => {
+      mouseX = (e.clientX / innerWidth - 0.5) * 2;
+      mouseY = (e.clientY / innerHeight - 0.5) * 2;
+    }, { passive: true });
+  }
+}
+
+/* ================================================================
+   BOUCLE — orbite lente, LEDs, paquets, radar, parallax, scroll
+================================================================ */
+function spawnRing(pos, color){
+  for(const r of ringPool){
+    if(r.life > 0) continue;
+    r.life = 1;
+    r.mesh.visible = true;
+    r.mesh.position.copy(pos);
+    r.mesh.material.color.setHex(color);
+    r.mesh.scale.setScalar(1);
+    return;
+  }
+}
+
+/* ticker HUD : petites lignes de trafic plausibles, jamais plus de 5 */
+const hud = document.getElementById('hud');
+const HOSTS = ['10.10.20.14', '10.10.20.31', '10.10.30.87', '10.10.40.5', '172.16.8.22', '10.10.10.1'];
+const hudTemplates = [
+  ok => `icmp <b>echo-reply</b> ${pick(HOSTS)} · ${(0.4 + Math.random() * 2.2).toFixed(1)} ms`,
+  ok => `dhcp <b>${ok ? 'ACK' : 'OFFER'}</b> ${pick(HOSTS)}`,
+  ok => `trunk <b>802.1Q</b> vlan ${pick([10, 20, 30, 40, 99])}`,
+  ok => `arp <b>who-has</b> ${pick(HOSTS)}`,
+  ok => `snmp <b>get</b> if-${pick(['Gi0/1', 'Gi0/2', 'Fa0/12', 'Te1/0/1'])} · up`,
+  ok => `stp <b>bpdu</b> root bridge stable`,
+];
+function pick(arr){ return arr[Math.floor(Math.random() * arr.length)]; }
+let lastHud = 0;
+function hudLog(ok){
+  const now = performance.now();
+  if(now - lastHud < 1400 || isCoarse || reduced) return;   /* throttle */
+  lastHud = now;
+  const line = document.createElement('div');
+  line.className = 'hud-line' + (ok ? '' : ' ok');
+  line.innerHTML = '&gt; ' + pick(hudTemplates)(ok);
+  hud.appendChild(line);
+  while(hud.children.length > 5) hud.removeChild(hud.firstChild);
+  setTimeout(() => { line.style.opacity = '0'; line.style.transition = 'opacity 0.6s'; }, 5200);
+}
+
+let hidden = false;
+document.addEventListener('visibilitychange', () => { hidden = document.hidden; });
+let docRange = 1;
+function measure(){
+  docRange = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+}
+addEventListener('resize', measure, { passive: true });
+addEventListener('load', measure);
+measure();
+
+function mainLoop(){
+  requestAnimationFrame(mainLoop);
+  if(hidden || !webgl || reduced) return;
+
+  const now = performance.now() * 0.001;
+  const scrollP = scrollY / docRange;
+
+  /* léger balancement de la baie + inclinaison au scroll */
+  topo.rotation.y = Math.sin(now * 0.12) * 0.06;
+  topo.rotation.x = -0.02 + scrollP * 0.08;
+
+  /* caméra orbitale : balayage lent autour de la baie, piloté souris + scroll */
+  const az = Math.sin(now * 0.13) * 0.5 + mouseX * 0.35 + scrollP * 1.6;
+  const RCAM = 8.2 - scrollP * 1.6;
+  camY += (-mouseY * 0.6 - camY) * 0.04;
+  camera.position.set(
+    topo.position.x + Math.sin(az) * RCAM,
+    0.9 + camY - scrollP * 1.2,
+    Math.cos(az) * RCAM
+  );
+  camera.lookAt(topo.position.x, -0.35, 0);
+
+  /* LEDs : bursts d'activité (rafales) pour les ports, respiration pour le statut */
+  for(const l of leds){
+    if(l.burst){
+      const on = Math.sin(now * l.speed * 0.6 + l.phase) > 0.45;
+      l.mat.opacity = on ? 0.35 + Math.random() * 0.65 : 0.1;
+    }else{
+      l.mat.opacity = 0.5 + Math.sin(now * l.speed + l.phase) * 0.35;
+    }
+  }
+
+  /* scan vertical sur la façade */
+  const sp = (now * 0.22) % 1;
+  scanLine.position.y = scanBounds[0] + sp * (scanBounds[1] - scanBounds[0]);
+  scanLine.material.opacity = Math.sin(sp * Math.PI) * 0.4;
+
+  /* paquets : circulation sur les courbes + anneau à l'arrivée */
+  for(const p of packets){
+    p.u += p.speed * (p.dir === 1 ? 1 : 1.25);
+    if(p.u > 1){
+      p.u = 0;
+      spawnRing(p.curve.getPoint(p.dir === 1 ? 1 : 0), p.dir === 1 ? 0xFF6B6E : 0xB08948);
+      hudLog(p.dir === 1);
+    }
+    const uu = p.dir === 1 ? p.u : 1 - p.u;
+    p.curve.getPoint(uu, p.mesh.position);
+    p.mesh.material.opacity = 0.5 + Math.sin(p.u * Math.PI) * 0.5;
+  }
+
+  /* radar : rotation continue, intensité liée au trafic */
+  radar.rotation.z -= 0.012;
+
+  /* anneaux d'arrivée : expansion + fondu, face caméra */
+  for(const r of ringPool){
+    if(r.life <= 0) continue;
+    r.life -= 0.035;
+    if(r.life <= 0){ r.mesh.visible = false; continue; }
+    const s = 1 + (1 - r.life) * 3.2;
+    r.mesh.scale.setScalar(s);
+    r.mesh.material.opacity = r.life * 0.7;
+    r.mesh.quaternion.copy(camera.quaternion);
+  }
+
+  renderer.render(scene, camera);
+}
+if(webgl && reduced) renderer.render(scene, camera);
+mainLoop();
+
+/* ================================================================
+   REVEALS
+================================================================ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.14 });
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ================================================================
+   TRAÎNÉE CURSEUR
+================================================================ */
+const trailCanvas = document.getElementById('cursorTrail');
+const tctx = trailCanvas.getContext('2d');
+let trail = [];
+function sizeTrail(){
+  trailCanvas.width = innerWidth;
+  trailCanvas.height = innerHeight;
+}
+addEventListener('resize', sizeTrail, { passive: true });
+sizeTrail();
+
+if(!isCoarse && !reduced){
+  addEventListener('mousemove', e => {
+    trail.push({ x: e.clientX, y: e.clientY, life: 1 });
+    if(trail.length > 36) trail.shift();
+  }, { passive: true });
+  (function trailLoop(){
+    requestAnimationFrame(trailLoop);
+    tctx.clearRect(0, 0, trailCanvas.width, trailCanvas.height);
+    tctx.lineCap = 'round';
+    for(let i = 1; i < trail.length; i++){
+      const p = trail[i], q = trail[i - 1];
+      p.life -= 0.035;
+      if(p.life <= 0) continue;
+      tctx.strokeStyle = `rgba(192, 132, 252, ${p.life * 0.3})`;
+      tctx.lineWidth = p.life * 1.8;
+      tctx.beginPath();
+      tctx.moveTo(q.x, q.y);
+      tctx.lineTo(p.x, p.y);
+      tctx.stroke();
+    }
+    trail = trail.filter(p => p.life > 0);
+  })();
+}
+
+/* ================================================================
+   BAIE DOCUMENTAIRE — IndexedDB (stockage local navigateur)
+================================================================ */
+const DB_NAME = 'espace-reseau';
+let db;
+
+function openDB(){
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(DB_NAME, 1);
+    req.onupgradeneeded = e => {
+      const d = e.target.result;
+      if(!d.objectStoreNames.contains('docs')) d.createObjectStore('docs', { keyPath:'id', autoIncrement:true });
+      if(!d.objectStoreNames.contains('kv')) d.createObjectStore('kv', { keyPath:'key' });
+    };
+    req.onsuccess = e => { db = e.target.result; resolve(); };
+    req.onerror = () => reject(req.error);
+  });
+}
+function tx(store, mode, fn){
+  return new Promise((resolve, reject) => {
+    const t = db.transaction(store, mode);
+    fn(t.objectStore(store));
+    t.oncomplete = resolve;
+    t.onerror = () => reject(t.error);
+  });
+}
+function getAll(store){
+  return new Promise((resolve, reject) => {
+    const req = db.transaction(store, 'readonly').objectStore(store).getAll();
+    req.onsuccess = () => resolve(req.result);
+    req.onerror = () => reject(req.error);
+  });
+}
+
+const dropzone = document.getElementById('dropzone');
+const fileInput = document.getElementById('fileInput');
+const docList = document.getElementById('docList');
+const docsEmpty = document.getElementById('docsEmpty');
+
+dropzone.addEventListener('click', () => fileInput.click());
+dropzone.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' ') fileInput.click(); });
+dropzone.addEventListener('dragover', e => { e.preventDefault(); dropzone.classList.add('dragover'); });
+dropzone.addEventListener('dragleave', () => dropzone.classList.remove('dragover'));
+dropzone.addEventListener('drop', e => {
+  e.preventDefault();
+  dropzone.classList.remove('dragover');
+  handleFiles(e.dataTransfer.files);
+});
+fileInput.addEventListener('change', () => { handleFiles(fileInput.files); fileInput.value = ''; });
+
+async function handleFiles(files){
+  for(const file of files){
+    if(file.size > 15 * 1024 * 1024){
+      alert(`"${file.name}" dépasse 15 Mo.`);
+      continue;
+    }
+    const buf = await file.arrayBuffer();
+    await tx('docs', 'readwrite', s => s.add({
+      name: file.name, type: file.type, size: file.size, date: Date.now(), data: buf
+    }));
+  }
+  await loadDocs();
+}
+
+function fmtSize(b){
+  if(b < 1024) return b + ' o';
+  if(b < 1048576) return (b/1024).toFixed(1) + ' Ko';
+  return (b/1048576).toFixed(1) + ' Mo';
+}
+function fmtDate(ts){
+  return new Date(ts).toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric' });
+}
+function ext(name){
+  const p = name.split('.');
+  return p.length > 1 ? p.pop().slice(0, 4) : 'doc';
+}
+
+async function loadDocs(){
+  const docs = await getAll('docs');
+  docList.innerHTML = '';
+  docsEmpty.style.display = docs.length ? 'none' : 'block';
+  docs.sort((a, b) => b.date - a.date).forEach(d => {
+    const el = document.createElement('div');
+    el.className = 'doc-item';
+    el.innerHTML = `
+      <div class="doc-ext">${ext(d.name)}</div>
+      <div class="doc-info">
+        <div class="doc-name"></div>
+        <div class="doc-meta">${fmtSize(d.size)} · ${fmtDate(d.date)}</div>
+      </div>
+      <div class="doc-actions">
+        <button class="doc-btn dl" title="Télécharger" aria-label="Télécharger">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </button>
+        <button class="doc-btn rm" title="Supprimer" aria-label="Supprimer">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        </button>
+      </div>`;
+    el.querySelector('.doc-name').textContent = d.name;
+    el.querySelector('.dl').addEventListener('click', () => {
+      const blob = new Blob([d.data], { type: d.type || 'application/octet-stream' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = d.name; a.click();
+      URL.revokeObjectURL(url);
+    });
+    el.querySelector('.rm').addEventListener('click', async () => {
+      if(confirm(`Supprimer "${d.name}" ?`)){
+        await tx('docs', 'readwrite', s => s.delete(d.id));
+        await loadDocs();
+      }
+    });
+    docList.appendChild(el);
+  });
+}
+
+/* ================================================================
+   JOURNAL — sauvegarde automatique
+================================================================ */
+const journalArea = document.getElementById('journalArea');
+const journalStatus = document.getElementById('journalStatus');
+let journalTimer;
+
+journalArea.addEventListener('input', () => {
+  journalStatus.textContent = 'Enregistrement…';
+  clearTimeout(journalTimer);
+  journalTimer = setTimeout(async () => {
+    await tx('kv', 'readwrite', s => s.put({ key:'journal', value: journalArea.value }));
+    journalStatus.textContent = 'Enregistré ✓';
+    setTimeout(() => journalStatus.textContent = '', 2200);
+  }, 600);
+});
+
+async function loadJournal(){
+  const req = db.transaction('kv', 'readonly').objectStore('kv').get('journal');
+  req.onsuccess = () => { if(req.result) journalArea.value = req.result.value; };
+}
+
+(async () => {
+  try{
+    await openDB();
+    await loadDocs();
+    await loadJournal();
+  }catch(err){
+    console.error('Stockage indisponible :', err);
+    docsEmpty.textContent = 'Stockage navigateur indisponible ici — ouvre le fichier en local.';
+  }
+})();
+
+console.log('%cLe réseau retient tout.', 'color:#c084fc; font-style:italic;');
+</script>
+
+</body>
+</html>

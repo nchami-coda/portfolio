@@ -1,0 +1,597 @@
+/* ══════════════════════════════════════════════════════════════
+   CV — Noé Chami · BTS SIO SISR
+   Premium resume design — dark sidebar + clean main content
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --bg: #0d0521;
+  --sheet: #ffffff;
+  --sidebar-from: #150a2e;
+  --sidebar-to:   #1c1038;
+  --text: #0f172a;
+  --muted: #5c5578;
+  --line: #e3d9f2;
+  --accent: #7c3aed;
+  --accent2: #a855f7;
+  --accent-soft: rgba(124, 58, 237, 0.10);
+  --white: #ffffff;
+  --shadow: 0 32px 72px rgba(76,29,149,.22), 0 2px 8px rgba(15,23,42,.06);
+  --grad: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 16px; }
+
+body {
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: linear-gradient(160deg, #0d0521 0%, #150a2e 100%);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  min-height: 100vh;
+  padding: 24px 16px;
+}
+
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* ── Sheet ──────────────────────────────────────────────────── */
+.cv-sheet {
+  width: min(1120px, 100%);
+  margin: 0 auto;
+  background: var(--sheet);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  min-height: calc(100vh - 48px);
+}
+
+/* ── Sidebar ─────────────────────────────────────────────────── */
+.sidebar {
+  background: linear-gradient(165deg, var(--sidebar-from) 0%, var(--sidebar-to) 100%);
+  color: var(--white);
+  padding: 32px 26px;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Decorative gradient orb */
+.sidebar::before {
+  content: "";
+  position: absolute;
+  bottom: -120px; right: -100px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(168,85,247,.28), transparent 65%);
+  pointer-events: none;
+}
+
+/* Top accent bar on sidebar */
+.sidebar::after {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--grad);
+}
+
+/* Profile photo */
+.photo {
+  width: 100%;
+  aspect-ratio: 4 / 4.8;
+  border-radius: 20px;
+  overflow: hidden;
+  background: rgba(255,255,255,.07);
+  border: 1px solid rgba(255,255,255,.12);
+  margin-bottom: 28px;
+  box-shadow: 0 12px 32px rgba(0,0,0,.4), 0 0 0 2px rgba(168,85,247,.4);
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.4s ease;
+}
+.photo:hover img { transform: scale(1.03); }
+
+/* Sidebar sections */
+.sidebar section + section { margin-top: 26px; }
+
+.sidebar section::before {
+  content: "";
+  display: block;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255,255,255,.12), transparent);
+  margin-bottom: 16px;
+}
+
+/* Block titles */
+.block-title {
+  margin: 0 0 14px;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent2);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.block-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(168,85,247,.4), transparent);
+}
+
+/* Contact list */
+.contact {
+  display: grid;
+  gap: 10px;
+  font-size: 0.93rem;
+  line-height: 1.5;
+}
+.contact a {
+  color: rgba(255,255,255,.85);
+  transition: color 0.2s ease;
+}
+.contact a:hover {
+  color: var(--accent2);
+  text-decoration: none;
+}
+.contact span { color: rgba(255,255,255,.78); }
+
+/* Chips */
+.chips {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  line-height: 1.2;
+  background: rgba(255,255,255,.08);
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.88);
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+.chip:hover {
+  background: rgba(124,58,237,.28);
+  border-color: rgba(168,85,247,.4);
+  transform: translateY(-1px);
+}
+
+/* Tool badges */
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 11px;
+  border-radius: 8px;
+  font-size: 0.81rem;
+  background: rgba(255,255,255,.06);
+  border: 1px solid rgba(255,255,255,.1);
+  color: rgba(255,255,255,.82);
+  transition: background 0.2s ease;
+}
+.badge:hover {
+  background: rgba(124,58,237,.24);
+  border-color: rgba(168,85,247,.35);
+}
+
+/* Languages */
+.languages {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 8px 14px;
+  align-items: center;
+  font-size: 0.93rem;
+}
+.languages strong { color: rgba(255,255,255,.95); font-weight: 700; }
+.languages span { color: rgba(255,255,255,.62); font-size: 0.85rem; }
+
+/* ── Main content ─────────────────────────────────────────── */
+.main-content {
+  padding: 36px 40px;
+  position: relative;
+}
+
+/* Top accent bar on main */
+.main-content::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--grad);
+}
+
+/* Hero */
+.hero {
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 32px;
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  border: 1px solid rgba(124,58,237,.28);
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+
+h1 {
+  font-size: clamp(2rem, 4vw, 3rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
+  font-weight: 900;
+  background: linear-gradient(130deg, #0f172a 40%, var(--accent) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.lead {
+  margin: 10px 0 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.summary {
+  margin: 14px 0 0;
+  font-size: 0.97rem;
+  line-height: 1.82;
+  color: var(--muted);
+  max-width: 70ch;
+}
+
+/* Section headers */
+.main-content section + section { margin-top: 30px; }
+
+.main-content h2 {
+  margin: 0 0 18px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.main-content h2::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: var(--line);
+}
+.main-content h2::before {
+  content: "";
+  width: 3px; height: 16px;
+  border-radius: 999px;
+  background: var(--grad);
+  flex-shrink: 0;
+}
+
+/* Timeline */
+.timeline { display: grid; gap: 14px; }
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 108px 1fr;
+  gap: 16px;
+  padding: 18px 20px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #fff;
+  transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+  position: relative;
+  overflow: hidden;
+}
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0; bottom: 0;
+  width: 3px;
+  background: var(--grad);
+  opacity: 0;
+  transition: opacity 0.24s ease;
+  border-radius: 0 2px 2px 0;
+}
+.timeline-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(76,29,149,.14);
+  border-color: #d8c9f0;
+}
+.timeline-item:hover::before { opacity: 1; }
+
+.period {
+  align-self: start;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.82rem;
+  font-weight: 800;
+  border: 1px solid rgba(124,58,237,.25);
+  white-space: nowrap;
+}
+
+.timeline-item h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.place {
+  margin: 5px 0 10px;
+  color: var(--muted);
+  font-weight: 600;
+  font-size: 0.91rem;
+}
+
+.timeline-item p:last-child {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.72;
+  font-size: 0.93rem;
+}
+
+/* ── Responsive ─────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  body { padding: 12px 10px; }
+  .cv-sheet {
+    grid-template-columns: 1fr;
+    border-radius: 20px;
+  }
+  .main-content { padding: 26px 22px; }
+  .main-content::before { display: none; }
+}
+
+@media (max-width: 640px) {
+  .timeline-item { grid-template-columns: 1fr; gap: 10px; }
+}
+
+/* ── Print ──────────────────────────────────────────────────── */
+@media print {
+  body { background: #fff; padding: 0; }
+  .cv-sheet {
+    width: 100%;
+    margin: 0;
+    border-radius: 0;
+    box-shadow: none;
+    min-height: auto;
+  }
+  .sidebar { background: #1a1a2e !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .sidebar::before, .sidebar::after, .main-content::before { display: none; }
+  .timeline-item:hover { transform: none; box-shadow: none; }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   CV PREMIUM ENHANCEMENTS — Animations & polish
+   ══════════════════════════════════════════════════════════════ */
+
+:root {
+  --ease-power: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@property --angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
+/* Background plus riche */
+body {
+  background:
+    radial-gradient(circle at 10% 0%, rgba(124, 58, 237, 0.28), transparent 30%),
+    radial-gradient(circle at 90% 100%, rgba(168, 85, 247, 0.18), transparent 32%),
+    linear-gradient(160deg, #0d0521 0%, #150a2e 100%);
+}
+
+/* Sheet avec hover global subtil */
+.cv-sheet {
+  position: relative;
+  transition: transform 0.5s var(--ease-power), box-shadow 0.5s ease;
+}
+
+/* Photo : halo animé en bordure */
+.photo {
+  position: relative;
+  isolation: isolate;
+}
+.photo::before {
+  content: "";
+  position: absolute;
+  inset: -3px;
+  border-radius: inherit;
+  z-index: -1;
+  background: conic-gradient(from var(--angle, 0deg),
+    var(--accent),
+    var(--accent2),
+    #c084fc,
+    #38bdf8,
+    var(--accent));
+  animation: cv-rotate 8s linear infinite;
+  filter: blur(2px);
+  opacity: 0.7;
+  transition: opacity 0.3s ease, filter 0.3s ease;
+}
+.photo:hover::before {
+  opacity: 1;
+  filter: blur(0.5px);
+}
+
+@keyframes cv-rotate {
+  to { --angle: 360deg; }
+}
+
+/* Eyebrow badge avec glow */
+.eyebrow {
+  position: relative;
+  overflow: hidden;
+}
+.eyebrow::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(120deg, transparent 30%, rgba(255,255,255,.4) 50%, transparent 70%);
+  transform: translateX(-100%);
+  animation: cv-shimmer 4s ease-in-out infinite 1s;
+}
+@keyframes cv-shimmer {
+  0%, 50% { transform: translateX(-100%); }
+  70% { transform: translateX(100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Timeline item : effet glow on hover */
+.timeline-item {
+  position: relative;
+}
+.timeline-item::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle 200px at var(--mx, 50%) var(--my, 50%),
+    rgba(124, 58, 237, 0.08),
+    transparent 50%);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  z-index: 0;
+}
+.timeline-item:hover::after { opacity: 1; }
+.timeline-item > * { position: relative; z-index: 1; }
+.timeline-item:hover {
+  transform: translateY(-4px) !important;
+  box-shadow: 0 20px 40px rgba(76,29,149,.2) !important;
+}
+
+/* Chips avec hover plus marqué */
+.chip {
+  position: relative;
+  overflow: hidden;
+}
+.chip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(168,85,247,.45), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.chip:hover::before { opacity: 1; }
+.chip:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 8px 18px rgba(124,58,237,.35) !important;
+}
+
+/* Badges avec effet de profondeur */
+.badge {
+  position: relative;
+  overflow: hidden;
+}
+.badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(0,0,0,.18);
+}
+
+/* H1 plus dramatique */
+h1 {
+  position: relative;
+  display: inline-block;
+}
+h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  width: 64px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--grad);
+  box-shadow: 0 2px 12px rgba(124,58,237,.5);
+}
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* ── Barre d'actions (écran uniquement) ─────────────────────── */
+.cv-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 18px 16px 0;
+}
+.cv-toolbar__btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  border-radius: 12px;
+  border: 1px solid rgba(192,132,252,.3);
+  background: rgba(28,16,56,.65);
+  backdrop-filter: blur(10px);
+  color: #e9e4f5;
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0,0,0,.35);
+}
+.cv-toolbar__btn:hover { background: rgba(124,58,237,.22); border-color: rgba(192,132,252,.5); }
+.cv-toolbar__btn:focus-visible { outline: 2px solid #a855f7; outline-offset: 2px; }
+.cv-toolbar__btn--primary { background: linear-gradient(135deg, #a855f7, #7c3aed); color: #fff; border-color: transparent; }
+
+/* Print : format A4, pas de coupure au milieu d'une expérience */
+@page { size: A4; margin: 10mm; }
+@media print {
+  .cv-toolbar { display: none !important; }
+  .photo::before,
+  .eyebrow::after { display: none !important; }
+  .timeline-item, .cv-sheet section { break-inside: avoid; page-break-inside: avoid; }
+  a { text-decoration: none; color: inherit; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photo::before,
+  .eyebrow::after { animation: none !important; }
+}
