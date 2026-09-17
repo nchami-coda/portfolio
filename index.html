@@ -62,6 +62,12 @@ nav{
 }
 .nav-links a:hover{color:var(--purple)}
 .nav-links a:hover::after{width:100%}
+.nav-coda{
+  border:1px solid var(--border);padding:6px 14px;border-radius:50px;
+  transition:border-color .25s,color .25s;
+}
+.nav-coda::after{display:none !important}
+.nav-coda:hover{border-color:var(--purple2);color:var(--purple)}
 .burger{display:none;background:none;border:none;color:var(--purple);font-size:1.6rem;cursor:pointer}
 
 /* ---------- layout ---------- */
@@ -226,6 +232,8 @@ section{padding:90px 7% 60px;max-width:1200px;margin:0 auto}
 }
 .cert h3{font-size:1.05rem;margin-bottom:8px}
 .cert p{color:var(--muted);font-size:.86rem;line-height:1.6}
+.cert-link{display:inline-block;margin-top:14px;color:var(--purple);font-size:.83rem;font-weight:700;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
+.cert-link:hover{border-color:var(--purple)}
 
 /* ---------- footer ---------- */
 footer{
@@ -272,6 +280,7 @@ footer .heart{color:var(--purple)}
     <li><a href="#skills">Compétences</a></li>
     <li><a href="#certs">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
+    <li><a href="coda.html" class="nav-coda">🔒 CODA</a></li>
   </ul>
   <button class="burger" id="burger">☰</button>
 </nav>
@@ -325,6 +334,10 @@ footer .heart{color:var(--purple)}
       <h3>Stages techniques en informatique (1ʳᵉ &amp; 2ᵉ année)</h3><h4>ADEFI · Meung-sur-Loire</h4>
       <p>Support, administration systèmes et réseaux, virtualisation, migration serveur, Active Directory, sauvegardes et documentation technique, avec un niveau de responsabilité plus élevé en deuxième année : configuration VLAN, supervision, diagnostics avancés et administration NAS Synology.</p>
       <div class="tags"><span class="tag">Zyxel</span><span class="tag">VLAN</span><span class="tag">Synology</span><span class="tag">Bash</span></div>
+      <div class="tags" style="margin-top:14px">
+        <a class="cert-link" href="assets/stage-adefi-1ere-annee.html" target="_blank" rel="noopener">Rapport 1ʳᵉ année ↗</a>
+        <a class="cert-link" href="assets/stage-adefi-2eme-annee.html" target="_blank" rel="noopener">Rapport 2ᵉ année ↗</a>
+      </div>
     </div></div>
     <div class="tl-item"><div class="tl-card">
       <span class="date">2024 · 807ᵉ Cie des Transmissions</span>
@@ -487,11 +500,11 @@ footer .heart{color:var(--purple)}
   <h2 class="section-title">Certifications &amp; formations</h2>
   <p class="section-sub">Une certification officielle ANSSI et quatre formations OpenClassrooms pour élargir mon socle technique.</p>
   <div class="cert-grid">
-    <div class="cert"><span class="org">ANSSI</span><h3>SecNumacadémie</h3><p>Certification de sensibilisation à la sécurité numérique : authentification, protection du poste, sécurité sur Internet et bonnes pratiques SSI.</p></div>
-    <div class="cert"><span class="org">OpenClassrooms</span><h3>Administrez un système Linux</h3><p>Terminal, droits, services, supervision et administration système sous Linux.</p></div>
-    <div class="cert"><span class="org">OpenClassrooms</span><h3>Administrez une architecture réseau avec Cisco</h3><p>CLI Cisco, VLAN, routage, ACL, services réseau et sécurisation d'une infrastructure.</p></div>
-    <div class="cert"><span class="org">OpenClassrooms</span><h3>Déployez vos systèmes et réseaux dans le cloud avec AWS</h3><p>Architectures cloud, VPC, EC2, supervision et maintien en condition opérationnelle.</p></div>
-    <div class="cert"><span class="org">OpenClassrooms</span><h3>Optimisez votre déploiement avec Docker</h3><p>Conteneurisation, images, Docker Compose, Docker Swarm et sécurisation du déploiement.</p></div>
+    <div class="cert"><span class="org">ANSSI</span><h3>SecNumacadémie</h3><p>Certification de sensibilisation à la sécurité numérique : authentification, protection du poste, sécurité sur Internet et bonnes pratiques SSI.</p><a class="cert-link" href="assets/certif-anssi.html" target="_blank" rel="noopener">Voir la certification ↗</a></div>
+    <div class="cert"><span class="org">OpenClassrooms</span><h3>Administrez un système Linux</h3><p>Terminal, droits, services, supervision et administration système sous Linux.</p><a class="cert-link" href="assets/certif-linux.html" target="_blank" rel="noopener">Voir la certification ↗</a></div>
+    <div class="cert"><span class="org">OpenClassrooms</span><h3>Administrez une architecture réseau avec Cisco</h3><p>CLI Cisco, VLAN, routage, ACL, services réseau et sécurisation d'une infrastructure.</p><a class="cert-link" href="assets/certif-cisco.html" target="_blank" rel="noopener">Voir la certification ↗</a></div>
+    <div class="cert"><span class="org">OpenClassrooms</span><h3>Déployez vos systèmes et réseaux dans le cloud avec AWS</h3><p>Architectures cloud, VPC, EC2, supervision et maintien en condition opérationnelle.</p><a class="cert-link" href="assets/certif-aws.html" target="_blank" rel="noopener">Voir la certification ↗</a></div>
+    <div class="cert"><span class="org">OpenClassrooms</span><h3>Optimisez votre déploiement avec Docker</h3><p>Conteneurisation, images, Docker Compose, Docker Swarm et sécurisation du déploiement.</p><a class="cert-link" href="assets/certif-docker.html" target="_blank" rel="noopener">Voir la certification ↗</a></div>
   </div>
 </section>
 
