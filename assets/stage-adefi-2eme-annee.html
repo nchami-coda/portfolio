@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Stage 2e année (2026) — Adefi Informatique · Noé Chami</title>
+  <link href="stage.css" rel="stylesheet"/>
+  <style>
+    :root{--hero1:#0f3460;--hero2:#1a5276}
+    .stage-video {
+      width: 100%;
+      max-height: 320px;
+      object-fit: contain;
+      border-radius: 14px;
+      border: 1px solid #e4eaf2;
+      box-shadow: 0 12px 28px rgba(15,23,42,.12);
+      background: #0b1020;
+      display: block;
+    }
+    .video-note {
+      font-size: .82rem;
+      color: #6b7280;
+      margin-top: 7px;
+      text-align: center;
+    }
+    .video-wrap { position: relative; display: inline-block; width: 100%; }
+    .video-play-btn {
+      position: absolute; left: 50%; top: 50%;
+      transform: translate(-50%, -50%);
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(214, 75, 98, .92);
+      color: #fff; border: 3px solid #fff;
+      cursor: pointer; font-size: 30px; line-height: 1;
+      box-shadow: 0 10px 28px rgba(0,0,0,.4);
+      display: flex; align-items: center; justify-content: center;
+      padding: 0 0 0 6px;
+      transition: transform .15s ease, background .15s ease;
+      z-index: 2;
+    }
+    .video-play-btn:hover { background: rgba(255, 90, 115, 1); transform: translate(-50%, -50%) scale(1.06); }
+    .video-play-btn[hidden] { display: none; }
+  </style>
+<link rel="icon" href="./favicon.svg" type="image/svg+xml"/>
+<link rel="apple-touch-icon" href="./favicon-180.png"/>
+</head>
+<body>
+<header class="hero">
+  <div class="container">
+    <span class="eyebrow">Stage BTS SIO · 2<sup>e</sup> année · 2026</span>
+    <h1>Compte-rendu de Stage<br>Administration Systèmes, Réseaux &amp; Virtualisation</h1>
+    <p class="lead">Six semaines chez Adefi Informatique en 2ème année : virtualisation VMware ESXi, déploiement Active Directory, VPN SSL, migration de données et Veeam Backup.</p>
+    <div class="hero-meta">
+      <span>🏢 Adefi Informatique</span><span>👤 M. Cédric Duval</span><span>📅 6 semaines</span><span>📍 SISR</span>
+    </div>
+  </div>
+</header>
+<main class="container">
+  <a class="back" href="../index.html">← Retour au portfolio</a>
+  <section class="card">
+    <p class="section-label">Contexte</p><h2>Présentation de l'entreprise</h2>
+    <div class="grid">
+      <div>
+        <p>Adefi Informatique est une société de services informatiques intervenant auprès d'entreprises et de collectivités. En 2ème année, les missions sont à plus forte valeur technique : virtualisation, Active Directory, solutions de sauvegarde et sécurité réseau.</p>
+      </div>
+      <div>
+        <table><thead><tr><th>Informations</th><th>Détail</th></tr></thead><tbody>
+          <tr><td>Entreprise</td><td><strong>Adefi Informatique</strong></td></tr>
+          <tr><td>Tuteur</td><td>M. Cédric Duval</td></tr>
+          <tr><td>Durée</td><td>6 semaines</td></tr>
+          <tr><td>Technologies</td><td>VMware ESXi, Veeam, Zyxel, Linux</td></tr>
+        </tbody></table>
+      </div>
+    </div>
+  </section>
+  <section class="card">
+    <p class="section-label">Objectifs</p><h2>Missions de 2ème année</h2>
+    <div class="steps">
+      <div class="step"><span>1</span><div><h3>Virtualisation</h3><p>Installer et configurer VMware ESXi sur un serveur HPE physique.</p></div></div>
+      <div class="step"><span>2</span><div><h3>Active Directory</h3><p>Déployer un nouveau DC Windows Server avec DNS, DHCP et GPO.</p></div></div>
+      <div class="step"><span>3</span><div><h3>Sécurité / Accès distant</h3><p>VPN SSL Zyxel, TSE et connexions Bureau à distance.</p></div></div>
+      <div class="step"><span>4</span><div><h3>Sauvegarde &amp; migration</h3><p>Migrer ~182 Go de données, transférer les rôles FSMO et mettre en place Veeam Backup.</p></div></div>
+    </div>
+  </section>
+
+  <!-- Photo de stage -->
+  
+
+  <!-- Faits marquants -->
+  <section class="card">
+    <p class="section-label">Faits marquants</p>
+    <h2>Quatre interventions qui résument ce stage</h2>
+    <p>Le détail semaine par semaine se trouve plus bas. Voici d'abord les interventions à plus fort
+    impact, présentées par le problème rencontré, ce que j'ai fait et ce que ça a donné.</p>
+    <div class="highlights">
+
+      <article class="highlight">
+        <span class="highlight__num">1</span>
+        <div>
+          <h3>Mise en service d'un hyperviseur sur serveur physique</h3>
+          <dl>
+            <dt>Situation</dt>
+            <dd>Un serveur HPE devait accueillir plusieurs machines virtuelles, avec une tolérance aux pannes disque.</dd>
+            <dt>Ce que j'ai fait</dt>
+            <dd>Création de <strong>deux volumes RAID 1</strong>, installation de la clé hyperviseur HPE, puis installation et configuration de <strong>VMware ESXi</strong> sur le serveur.</dd>
+          </dl>
+          <dl class="highlight__result">
+            <dt>Résultat</dt>
+            <dd>Hyperviseur opérationnel hébergeant 3 machines virtuelles sur des banques de données en RAID 1.</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <span class="highlight__num">2</span>
+        <div>
+          <h3>Second contrôleur de domaine et reprise des rôles FSMO</h3>
+          <dl>
+            <dt>Situation</dt>
+            <dd>Le domaine <code>adefi.local</code> ne reposait que sur un seul contrôleur de domaine : une panne de ce serveur, et plus personne ne s'authentifie.</dd>
+            <dt>Ce que j'ai fait</dt>
+            <dd>Promotion de <strong>SRV-AD02</strong> en contrôleur de domaine, installation des rôles DNS et DHCP, contrôle des stratégies de groupe, puis vérification de la réplication avec <code>repadmin /replsummary</code> et transfert des <strong>5 rôles FSMO</strong> validé par <code>netdom query fsmo</code>.</dd>
+          </dl>
+          <dl class="highlight__result">
+            <dt>Résultat</dt>
+            <dd>Deux contrôleurs de domaine en réplication, <strong>0 erreur sur 5 partenaires</strong> dans les deux sens, et les 5 rôles FSMO portés par le nouveau serveur.</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <span class="highlight__num">3</span>
+        <div>
+          <h3>Migration de 182 Go de données et mise en place des sauvegardes</h3>
+          <dl>
+            <dt>Situation</dt>
+            <dd>Les données de production devaient être déplacées vers un nouveau serveur sans interrompre l'activité, et l'infrastructure n'avait pas encore de politique de sauvegarde formalisée.</dd>
+            <dt>Ce que j'ai fait</dt>
+            <dd>Migration par <strong>lots progressifs avec vérification d'intégrité</strong> et bascule planifiée hors heures de bureau, puis mise en place de <strong>Veeam Backup &amp; Replication</strong> : sauvegarde des VM ESXi, sauvegarde par agent du serveur et réplication des VM, avec planifications quotidiennes.</dd>
+          </dl>
+          <dl class="highlight__result">
+            <dt>Résultat</dt>
+            <dd>Environ 182 Go migrés sans coupure ressentie par les utilisateurs, partages réseau opérationnels et sauvegardes automatiques en place.</dd>
+          </dl>
+        </div>
+      </article>
+
+      <article class="highlight">
+        <span class="highlight__num">4</span>
+        <div>
+          <h3>Diagnostic d'un scan réseau en échec : remonter à la cause réelle</h3>
+          <dl>
+            <dt>Situation</dt>
+            <dd>Le copieur OKI renvoyait une « erreur de stockage » à chaque numérisation vers le dossier réseau. Le symptôme désignait l'imprimante, ce qui envoyait le diagnostic dans la mauvaise direction.</dd>
+            <dt>Ce que j'ai fait</dt>
+            <dd>Vérification du chemin réel emprunté par le fichier plutôt que du périphérique : les <strong>droits NTFS</strong> du dossier <code>SCANS_OKI</code> ne permettaient pas l'écriture. Ajout du groupe <em>Impression</em> avec les droits Modifier et Écriture.</dd>
+          </dl>
+          <dl class="highlight__result">
+            <dt>Résultat</dt>
+            <dd>Numérisation vers le réseau rétablie, sans intervention sur le copieur — le matériel n'était pas en cause.</dd>
+          </dl>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- S1 -->
+  <section class="card week-card">
+    <div class="week-header"><span class="week-badge">Semaine 1</span><h2 style="margin:0">Infrastructure serveur &amp; virtualisation</h2></div>
+    <p class="section-label">Activités principales</p>
+    <ul>
+      <li>Analyse et correction d'un problème de <strong>scan réseau OKI</strong> (droits NTFS insuffisants sur le dossier SCANS_OKI).</li>
+      <li>Mise en place de <strong>deux volumes RAID 1</strong> sur serveur HPE et installation d'une clé HPE hyperviseur.</li>
+      <li>Installation et configuration de <strong>VMware ESXi</strong> sur le serveur physique.</li>
+    </ul>
+    <div class="callout warn"><strong>Diagnostic OKI :</strong> Erreur "Erreur de stockage" causée par des droits NTFS insuffisants. Solution : ajout du groupe <em>Impression</em> avec droits Modifier/Écriture sur le dossier SCANS_OKI.</div>
+    <div class="callout success"><strong>Résultat :</strong> VMware ESXi opérationnel sur le serveur HPE avec les deux volumes RAID 1 configurés.</div>
+    <p class="section-label" style="margin-top:24px">Preuves techniques</p>
+    <div class="proof-row">
+      <div><h3>VMware ESXi — Interface de gestion</h3><p>ESXi Host Client du serveur SRV-ESXi-HPE : ressources CPU/RAM/stockage et les 3 VMs hébergées visibles.</p></div>
+      <figure class="proof-media">
+        <img src="esxi-dashboard.webp" alt="VMware ESXi Host Client SRV-ESXi-HPE — 3 VMs, datastores RAID 1" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>VMware ESXi · SRV-ESXi-HPE · 3 VMs · Datastores RAID 1</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>Droits NTFS — Dossier SCANS_OKI</h3><p>Propriétés de sécurité NTFS du dossier SCANS_OKI avec le groupe Impression ajouté (Modifier, Écriture) pour résoudre l'erreur de scan réseau.</p></div>
+      <figure class="proof-media">
+        <img src="ntfs-scans-oki.webp" alt="Propriétés NTFS SCANS_OKI — groupe Impression, droits Modifier et Écriture" loading="lazy" width="1171" height="1343" decoding="async"/>
+        <figcaption>Windows Server 2019 · SCANS_OKI · Groupe Impression : Modifier, Écriture</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- S2 -->
+  <section class="card week-card">
+    <div class="week-header"><span class="week-badge">Semaine 2</span><h2 style="margin:0">Tests matériels &amp; messagerie</h2></div>
+    <p class="section-label">Activités principales</p>
+    <ul>
+      <li>Tests et supervision d'un <strong>onduleur professionnel Nitram</strong> (SNMP, analyse coût/performance).</li>
+      <li>Configuration de la <strong>messagerie POP/IMAP</strong> sur serveur et postes utilisateurs.</li>
+      <li>Diagnostic d'un <strong>ralentissement d'Outlook</strong> au démarrage.</li>
+    </ul>
+    <div class="callout warn"><strong>Analyse coût/performance :</strong> La carte SNMP de l'onduleur Nitram offre une supervision complète mais trop coûteuse pour une petite structure. Alternative logicielle recommandée.</div>
+    <p class="section-label" style="margin-top:24px">Preuves techniques</p>
+    <div class="proof-row">
+      <div><h3>Onduleur Nitram — Dashboard</h3><p>Nitram UPS Monitoring : 230V entrée/sortie, charge 45%, batterie 100%, autonomie 12 min, Normal - Online.</p></div>
+      <figure class="proof-media">
+        <img src="nitram-ups.webp" alt="Nitram UPS Monitoring — 230V, 45% charge, 100% batterie, 12min, Normal Online" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>Nitram UPS · 230V · Charge 45% · Batterie 100% · 12 min · Normal - Online</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>Configuration Outlook — Compte IMAP</h3><p>Paramètres messagerie Internet dans Outlook avec serveurs IMAP (entrant) et SMTP (sortant) de l'entreprise cliente.</p></div>
+      <figure class="proof-media">
+        <img src="outlook-imap.webp" alt="Outlook — Paramètres messagerie Internet IMAP, serveurs entrant/sortant configurés" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>Outlook · Messagerie Internet · Type IMAP · Serveurs entrant/sortant configurés</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- S3 -->
+  <section class="card week-card">
+    <div class="week-header"><span class="week-badge">Semaine 3</span><h2 style="margin:0">VPN &amp; préparation de postes</h2></div>
+    <p class="section-label">Activités principales</p>
+    <ul>
+      <li>Création d'un <strong>compte VPN SSL</strong> sur routeur Zyxel et test de connexion depuis l'extérieur.</li>
+      <li>Configuration <strong>TSE / RDP</strong> et test Bureau à distance via le tunnel VPN.</li>
+      <li>Montage d'un ordinateur, installation de <strong>Windows 11 Pro</strong> avec activation de licence.</li>
+      <li>Transfert de fichiers via <strong>Linux Mint</strong> (contournement des restrictions NTFS Windows).</li>
+    </ul>
+    <div class="callout info"><strong>Technique :</strong> Boot sur Linux Mint depuis clé USB pour accéder aux fichiers sans contraintes NTFS Windows.</div>
+    <p class="section-label" style="margin-top:24px">Preuves techniques</p>
+    <div class="proof-row">
+      <div><h3>VPN Zyxel — Compte vpn_adefi</h3><p>Zyxel ZyWALL USG80 SSL VPN User Accounts : compte vpn_adefi, groupe VPN_Users, Enabled, SSL-VPN.</p></div>
+      <figure class="proof-media">
+        <img src="zyxel-vpn-users.webp" alt="Zyxel ZyWALL USG80 SSL VPN User Accounts — vpn_adefi, VPN_Users, Enabled" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>Zyxel ZyWALL USG80 · SSL VPN · vpn_adefi · VPN_Users · Enabled</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>Session RDP via VPN — SRV-TSE</h3><p>Connexion Bureau à distance sur SRV-TSE.adefi.local après tunnel VPN établi : 2 sessions actives, 6 Go/16 Go RAM.</p></div>
+      <figure class="proof-media">
+        <img src="rdp-session-tse.webp" alt="Bureau à distance SRV-TSE.adefi.local via VPN — 2 sessions, 6 Go/16 Go RAM" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>RDP · SRV-TSE.adefi.local · Via VPN SSL · 2 sessions · 6 Go / 16 Go RAM</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>Windows 11 Pro — Activation</h3><p>Paramètres Activation : Windows 11 Professionnel activé avec licence numérique associée au compte Microsoft.</p></div>
+      <figure class="proof-media">
+        <img src="win11-activation.webp" alt="Windows 11 Paramètres Activation — Professionnel, licence numérique active" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>Windows 11 Professionnel · Licence numérique · Activé</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- S4 -->
+  <section class="card week-card">
+    <div class="week-header"><span class="week-badge">Semaine 4</span><h2 style="margin:0">Administration Linux &amp; audit réseau</h2></div>
+    <p class="section-label">Activités principales</p>
+    <ul>
+      <li>Création de l'utilisateur <strong>adefi</strong> avec droits sudo, suppression du compte <strong>OEM</strong>.</li>
+      <li>Audit réseau avec <strong>Nmap -sV</strong> du réseau client (12 hôtes identifiés).</li>
+      <li>Connexion <strong>SSH au Raspberry Pi</strong> pour administration distante.</li>
+      <li>Analyse des requêtes DNS et comportement de l'antivirus ESET.</li>
+    </ul>
+    <div class="callout warn"><strong>Problème :</strong> Utilisateur adefi créé sans droits admin. <strong>Solution :</strong> <code>usermod -aG sudo adefi</code> puis vérification avec <code>id adefi</code> (groupes=27(sudo)).</div>
+    <p class="section-label" style="margin-top:24px">Preuves techniques</p>
+    <div class="proof-row">
+      <div><h3>Terminal Linux — Gestion utilisateurs</h3><p>Séquence : useradd adefi → passwd → usermod -aG sudo → id adefi (sudo confirmé) → userdel -r oem.</p></div>
+      <figure class="proof-media">
+        <img src="linux-useradd-sudo.webp" alt="Terminal Ubuntu — useradd adefi, usermod -aG sudo, id adefi groupes=27(sudo), userdel oem" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>Ubuntu · useradd adefi · usermod -aG sudo · groupes=27(sudo) · userdel -r oem</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>SSH — Raspberry Pi 4</h3><p>Session SSH sur pi@192.168.1.100 : Raspberry Pi OS (bookworm), Pi 4 Model B, aarch64, identifié via hostnamectl.</p></div>
+      <figure class="proof-media">
+        <img src="ssh-raspberry.webp" alt="Terminal SSH pi@192.168.1.100 — Raspberry Pi OS bookworm, Pi 4 Model B" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>SSH pi@192.168.1.100 · Raspberry Pi OS (bookworm) · Pi 4 Model B · aarch64</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>Audit Nmap -sV du réseau</h3><p>Scan 192.168.1.0/24 : 12 hôtes détectés (Zyxel, ESXi, Raspberry Pi, Windows Server, postes mairie, NAS Synology, imprimante).</p></div>
+      <figure class="proof-media">
+        <img src="nmap-audit-reseau.webp" alt="Kali nmap -sV 192.168.1.0/24 — 12 hôtes : Zyxel, ESXi, Raspberry Pi, Windows Server, NAS" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>Nmap -sV · 12 hôtes · Zyxel, ESXi, Raspberry Pi, Windows Server, NAS Synology</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- S5 -->
+  <section class="card week-card">
+    <div class="week-header"><span class="week-badge">Semaine 5</span><h2 style="margin:0">Déploiement Active Directory</h2></div>
+    <p class="section-label">Activités principales</p>
+    <ul>
+      <li>Désactivation du Secure Boot et passage en profil réseau entreprise.</li>
+      <li><strong>Promotion du serveur en contrôleur de domaine</strong> (SRV-AD02 sur adefi.local).</li>
+      <li>Installation des rôles <strong>DNS et DHCP</strong>.</li>
+      <li><strong>Vérification de la réplication AD</strong> entre SRV-AD01 et SRV-AD02 via repadmin.</li>
+      <li>Contrôle des GPO et scripts de démarrage.</li>
+    </ul>
+    <div class="callout success"><strong>Résultat :</strong> SRV-AD02 opérationnel sur adefi.local, réplication AD/DNS vérifiée entre les deux DCs, DNS et DHCP actifs.</div>
+    <p class="section-label" style="margin-top:24px">Preuves techniques</p>
+    <div class="proof-row">
+      <div><h3>ADUC — Deux contrôleurs de domaine</h3><p>Console ADUC : SRV-AD01 (Windows Server 2016) et SRV-AD02 (Windows Server 2019) dans l'OU Domain Controllers du domaine adefi.local.</p></div>
+      <figure class="proof-media">
+        <img src="aduc-s2-dc.webp" alt="ADUC adefi.local — Domain Controllers : SRV-AD01 WS2016 et SRV-AD02 WS2019" loading="lazy" width="1397" height="1126" decoding="async"/>
+        <figcaption>ADUC · adefi.local · SRV-AD01 (WS 2016) + SRV-AD02 (WS 2019)</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>DNS Manager — Zone adefi.local</h3><p>Zone adefi.local avec enregistrements SOA, NS et A des deux DCs : SRV-AD01 (192.168.1.10), SRV-AD02 (192.168.1.11), SRV-DaTA (192.168.1.20).</p></div>
+      <figure class="proof-media">
+        <img src="dns-zones-adefi.webp" alt="DNS Manager — zone adefi.local, enregistrements A SRV-AD01/AD02/DaTA" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>DNS Manager · adefi.local · SRV-AD01 192.168.1.10 · SRV-AD02 192.168.1.11 · SRV-DaTA 192.168.1.20</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>Réplication AD — repadmin /replsummary</h3><p>0 erreur sur 5 partenaires dans les deux sens (Source et Destination DSA) : réplication entre SRV-AD01 et SRV-AD02 fonctionnelle.</p></div>
+      <figure class="proof-media">
+        <img src="repadmin-replsummary.webp" alt="repadmin /replsummary — SRV-AD01 et SRV-AD02, 0 failures, réplication OK" loading="lazy" width="1536" height="1024" decoding="async"/>
+        <figcaption>repadmin /replsummary · SRV-AD01 ↔ SRV-AD02 · 0 erreur de réplication</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- S6 -->
+  <section class="card week-card">
+    <div class="week-header"><span class="week-badge">Semaine 6</span><h2 style="margin:0">Migration de données &amp; Veeam Backup</h2></div>
+    <p class="section-label">Activités principales</p>
+    <div class="grid">
+      <div><p><strong>Migration :</strong></p><ul>
+        <li>Transfert des <strong>rôles FSMO</strong> vers SRV-AD02.</li>
+        <li>Migration d'environ <strong>182 Go de données</strong>.</li>
+        <li>Formatage d'un disque 1 To pour le serveur Data.</li>
+      </ul></div>
+      <div><p><strong>Services :</strong></p><ul>
+        <li>Mise en place <strong>TSE et RDP</strong>.</li>
+        <li><strong>Veeam Backup</strong> (sauvegarde + réplication VMs).</li>
+        <li>Virtualisation d'un poste avec <strong>OpenBee</strong>.</li>
+      </ul></div>
+    </div>
+    <div class="callout warn"><strong>Défi :</strong> Continuité de service pendant la migration. Solution : lots progressifs avec vérification d'intégrité, bascule planifiée hors heures de bureau.</div>
+    <p class="section-label" style="margin-top:24px">Preuves techniques</p>
+    <div class="proof-row">
+      <div><h3>Veeam Backup — Jobs configurés</h3><p>Console Veeam : sauvegarde VMs ESXi, sauvegarde agent serveur et réplication VMs avec planifications quotidiennes.</p></div>
+      <figure class="proof-media">
+        <img src="veeam-jobs.webp" alt="Veeam Backup & Replication — jobs Backup_VM, Backup_SRV-ADEFI, Replication" loading="lazy" width="1448" height="1086" decoding="async"/>
+        <figcaption>Veeam Backup &amp; Replication · Jobs : sauvegarde VMs + serveur + réplication</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>Rôles FSMO — SRV-AD02.adefi.local</h3><p><code>netdom query fsmo</code> : les 5 rôles FSMO (Schema, Naming, PDC, RID, Infrastructure) sont transférés sur SRV-AD02.</p></div>
+      <figure class="proof-media">
+        <img src="fsmo-s2-netdom.webp" alt="netdom query fsmo — 5 rôles sur SRV-AD02.adefi.local, commande réussie" loading="lazy" width="1619" height="972" decoding="async"/>
+        <figcaption>netdom query fsmo · 5 rôles FSMO → SRV-AD02.adefi.local</figcaption>
+      </figure>
+    </div>
+    <div class="proof-row">
+      <div><h3>Serveur Data — Données &amp; partages réseau</h3><p>Disque Données D: avec ~161 Go occupés sur 930 Go, et partages réseau Entreprise, Utilisateurs, Commun accessibles au domaine.</p></div>
+      <figure class="proof-media">
+        <img src="donnees-migrees.webp" alt="Windows Server Explorer — disque D: 161 Go, partages Entreprise/Utilisateurs/Commun" loading="lazy" width="1536" height="1024" decoding="async"/>
+        <figcaption>Windows Server · Disque D: ~161 Go · Partages : Entreprise, Utilisateurs, Commun</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="card">
+    <p class="section-label">Synthèse</p><h2>Compétences acquises — 2ème année</h2>
+    <table><thead><tr><th>Domaine</th><th>Compétence</th><th>Niveau</th></tr></thead><tbody>
+      <tr><td>Virtualisation</td><td>VMware ESXi, gestion VMs, OpenBee</td><td>Intermédiaire</td></tr>
+      <tr><td>Administration AD</td><td>Windows Server, DC, DNS, DHCP, FSMO, GPO, réplication</td><td>Avancé</td></tr>
+      <tr><td>Sécurité / Accès</td><td>VPN SSL Zyxel, TSE, RDP, droits NTFS</td><td>Intermédiaire</td></tr>
+      <tr><td>Administration Linux</td><td>Gestion utilisateurs, sudo, SSH, Nmap</td><td>Intermédiaire</td></tr>
+      <tr><td>Sauvegarde</td><td>Veeam Backup &amp; Replication</td><td>Intermédiaire</td></tr>
+      <tr><td>Migration serveur</td><td>Migration ~182 Go, continuité de service, FSMO</td><td>Avancé</td></tr>
+      <tr><td>Messagerie</td><td>POP/IMAP, Outlook, diagnostic</td><td>Intermédiaire</td></tr>
+    </tbody></table>
+  </section>
+
+  <div class="bts-map">
+    <p class="section-label">Référentiel BTS SIO</p>
+    <h2 style="margin:0 0 8px">Correspondance BTS SIO SISR</h2>
+    <ul class="chips-list">
+      <li class="bts-chip">B1.1 – Gérer le patrimoine informatique</li>
+      <li class="bts-chip">B1.2 – Répondre aux incidents et aux demandes d'assistance</li>
+      <li class="bts-chip">B1.5 – Mettre à disposition des utilisateurs un service informatique</li>
+      <li class="bts-chip">B2.1 – Concevoir une solution d'infrastructure réseau</li>
+      <li class="bts-chip">B2.2 – Installer l'infrastructure réseau</li>
+      <li class="bts-chip">B2.3 – Exploiter l'infrastructure réseau</li>
+      <li class="bts-chip">B2.4 – Garantir la disponibilité, l'intégrité et la confidentialité des données</li>
+    </ul>
+  </div>
+
+  <section class="card">
+    <p class="section-label">Conclusion</p><h2>Bilan du stage de 2ème année</h2>
+    <p>Ce deuxième stage chez Adefi Informatique m'a permis d'aborder des problématiques techniques nettement plus complexes : virtualisation avec VMware ESXi, déploiement complet d'un Active Directory avec DNS/DHCP, mise en place de Veeam Backup et migration de données en production.</p>
+    <div class="callout success"><strong>Points forts :</strong> Le déploiement de SRV-AD02 avec transfert des rôles FSMO et la mise en place de Veeam Backup — deux missions à fort impact opérationnel réalisées en autonomie croissante.</div>
+    <p>Ce stage confirme ma montée en compétences et consolide mon projet professionnel orienté administration systèmes, réseaux et virtualisation.</p>
+  </section>
+
+</main>
+<script>
+(function(){
+  document.querySelectorAll('.video-wrap').forEach(function(wrap){
+    var v = wrap.querySelector('video.stage-video');
+    var btn = wrap.querySelector('.video-play-btn');
+    if(!v || !btn) return;
+    var hideBtn = function(){ btn.setAttribute('hidden',''); };
+    var showBtn = function(){ btn.removeAttribute('hidden'); };
+    var attempt = function(){
+      var p = v.play();
+      if(p && p.then) p.then(hideBtn).catch(showBtn);
+      else if(!v.paused) hideBtn(); else showBtn();
+    };
+    attempt();
+    btn.addEventListener('click', function(e){ e.preventDefault(); attempt(); });
+    v.addEventListener('playing', hideBtn);
+    v.addEventListener('pause', function(){ if(!v.ended) showBtn(); });
+    document.addEventListener('click', attempt, { once: true, capture: true });
+    setTimeout(function(){
+      if(v.paused){ v.setAttribute('controls',''); showBtn(); }
+    }, 2000);
+  });
+})();
+</script>
+</body>
+</html>
