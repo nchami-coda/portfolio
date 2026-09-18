@@ -306,6 +306,7 @@ footer .heart{color:var(--purple)}
   <a href="index.html" class="logo" style="text-decoration:none">NC.</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">← Portfolio</a></li>
+    <li><a href="#projets">Projets</a></li>
     <li><a href="#stages">Stages</a></li>
     <li><a href="#certs">Certifications</a></li>
     <li><a href="#technique">Fiches techniques</a></li>
@@ -321,8 +322,9 @@ footer .heart{color:var(--purple)}
   <p class="section-sub">L'ensemble de mon dossier de BTS SIO : rapports de stage, certifications, fiches techniques et documents officiels — tout ce qui a été produit pendant les deux années de formation.</p>
 
   <div class="bts-intro">
-    <p>Diplômé du <strong style="color:var(--txt)">BTS SIO option SISR</strong> (2024 – 2026) au Lycée Benjamin Franklin d'Orléans. Cette page rassemble les pièces détaillées de mon dossier — les projets eux-mêmes (Missions GSB, audit Nessus, Keepalived, DHCP...) restent présentés sur la <a href="index.html#projects" style="color:var(--purple)">page d'accueil</a>, ici ce sont les rapports et justificatifs complets.</p>
+    <p>Diplômé du <strong style="color:var(--txt)">BTS SIO option SISR</strong> (2024 – 2026) au Lycée Benjamin Franklin d'Orléans. Cette page rassemble les pièces détaillées de mon dossier — on y trouve les projets techniques (Missions GSB, audit Nessus, Keepalived, DHCP), les rapports de stage, les certifications et les justificatifs officiels.</p>
     <div class="stats">
+      <div class="stat"><div class="num">6</div><div class="lbl">Projets techniques</div></div>
       <div class="stat"><div class="num">2</div><div class="lbl">Rapports de stage</div></div>
       <div class="stat"><div class="num">5</div><div class="lbl">Certifications</div></div>
       <div class="stat"><div class="num">1</div><div class="lbl">Fiche technique</div></div>
@@ -331,6 +333,124 @@ footer .heart{color:var(--purple)}
   </div>
 
   <div class="bts-groups">
+
+    <!-- ================= PROJECTS ================= -->
+<div id="projets">
+  <div class="bts-group-title"><h3>🧩 Projets techniques (Missions GSB &amp; Cybersécurité)</h3><div class="line"></div></div>
+  <div class="projects-grid">
+
+    <div class="card">
+      <span class="badge">GSB · Mission 1</span>
+      <h3>Segmentation réseau et sécurisation d'un switch Cisco</h3>
+      <h4>Problème</h4>
+      <p>Le réseau devait être segmenté par services afin d'isoler les postes, réduire les erreurs de brassage et préparer une administration propre du switch.</p>
+      <h4>Solution</h4>
+      <p>Création des VLAN métiers, affectation des ports, VLAN de management et accès d'administration en SSH.</p>
+      <ul>
+        <li>Création et affectation de VLAN</li>
+        <li>Configuration d'une IP de management</li>
+        <li>Sécurisation de l'administration en SSH</li>
+        <li>Production de documents d'exploitation</li>
+      </ul>
+      <div class="tags"><span class="tag">Cisco 2960</span><span class="tag">VLAN</span><span class="tag">SSH</span><span class="tag">Recette</span></div>
+      <img src="assets/plan-vlan.webp" alt="Plan d'adressage VLAN" style="width:100%;border-radius:12px;margin-top:16px;border:1px solid var(--border)">
+      <a class="doc-link" href="reseau.html" target="_blank" rel="noopener" style="margin-top:14px">Voir le schéma réseau interactif ↗</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">GSB · Mission 2</span>
+      <h3>Interconnexion VLAN et sortie Internet via Stormshield</h3>
+      <h4>Problème</h4>
+      <p>Les VLAN internes devaient accéder à Internet sans perdre la séparation logique du réseau ni la lisibilité de la configuration.</p>
+      <h4>Solution</h4>
+      <p>Interfaces VLAN sur le firewall, route par défaut et NAT Masquerade avec vérification des flux.</p>
+      <ul>
+        <li>Configuration d'interfaces VLAN</li>
+        <li>Routage vers le WAN</li>
+        <li>Mise en œuvre du NAT</li>
+        <li>Tests et validation de connectivité</li>
+      </ul>
+      <div class="tags"><span class="tag">Stormshield</span><span class="tag">NAT</span><span class="tag">Filtrage</span><span class="tag">Routage</span></div>
+      <a class="doc-link" href="reseau.html" target="_blank" rel="noopener" style="margin-top:14px">Voir le schéma réseau interactif ↗</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">GSB · Mission 3</span>
+      <h3>Infrastructure Active Directory, DNS et DHCP</h3>
+      <h4>Problème</h4>
+      <p>Centraliser la gestion des utilisateurs et des postes, résoudre les noms internes du domaine et éviter la configuration IP manuelle sur les clients.</p>
+      <h4>Solution</h4>
+      <p>Deux contrôleurs de domaine Windows Server 2025, DNS intégré à l'annuaire et DHCP sous Debian distribuant passerelle, suffixe DNS et serveurs DNS internes.</p>
+      <ul>
+        <li>Promotion d'un contrôleur de domaine (swiss-galaxyB2.com)</li>
+        <li>DNS intégré à Active Directory</li>
+        <li>DHCP pour les VLAN du contexte GSB</li>
+        <li>Validation client : ipconfig, nslookup, dcdiag, repadmin</li>
+      </ul>
+      <div class="tags"><span class="tag">Windows Server</span><span class="tag">Active Directory</span><span class="tag">DNS</span><span class="tag">DHCP</span></div>
+      <a class="doc-link" href="reseau.html" target="_blank" rel="noopener" style="margin-top:14px">Voir le schéma réseau interactif ↗</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">Cybersécurité</span>
+      <h3>Audit de vulnérabilités avec Nessus sur UnrealIRCd</h3>
+      <h4>Problème</h4>
+      <p>Déterminer si un service exposé présente une vulnérabilité critique et mesurer le niveau de risque pour l'infrastructure ciblée.</p>
+      <h4>Solution</h4>
+      <p>Scan Nessus, analyse du cas UnrealIRCd (CVE-2010-2075), interprétation des résultats puis synthèse des risques et contre-mesures.</p>
+      <ul>
+        <li>Lecture et qualification d'un scan</li>
+        <li>Analyse d'une faille de type RCE</li>
+        <li>Rédaction de contre-mesures</li>
+        <li>Restitution structurée</li>
+      </ul>
+      <div class="tags"><span class="tag">Nessus</span><span class="tag">Analyse</span><span class="tag">Risque</span><span class="tag">Contre-mesures</span></div>
+    </div>
+
+    <div class="card">
+      <span class="badge">Haute disponibilité</span>
+      <h3>Redondance de passerelle avec Keepalived et VRRP</h3>
+      <h4>Problème</h4>
+      <p>Une passerelle unique constitue un point de défaillance : si le routeur tombe, tout le réseau perd son accès.</p>
+      <h4>Solution</h4>
+      <p>Deux routeurs Debian exécutant Keepalived partagent une adresse virtuelle via VRRP. Le maître porte la VIP ; en cas de panne, le secours la reprend automatiquement.</p>
+      <ul>
+        <li>Configuration d'une instance VRRP</li>
+        <li>Priorités maître / secours</li>
+        <li>Test de bascule et de retour</li>
+        <li>Supervision par track_script</li>
+      </ul>
+      <div class="tags"><span class="tag">Debian</span><span class="tag">Keepalived</span><span class="tag">VRRP</span><span class="tag">Bascule</span></div>
+      <a class="doc-link" href="assets/Keepalived.html" target="_blank" rel="noopener" style="margin-top:14px">Voir la fiche technique ↗</a>
+    </div>
+
+    <div class="card">
+      <span class="badge">Services réseau</span>
+      <h3>Déploiement d'un service DHCP sous Windows Server</h3>
+      <h4>Problème</h4>
+      <p>Les postes devaient recevoir automatiquement leur configuration IP afin de limiter les erreurs manuelles et standardiser la mise en service.</p>
+      <h4>Solution</h4>
+      <p>Création d'une étendue DHCP, définition des options réseau puis contrôle du renouvellement de bail côté client, avec documentation web et PDF.</p>
+      <ul>
+        <li>Création d'étendue DHCP</li>
+        <li>Paramétrage DNS et passerelle</li>
+        <li>Vérification des baux côté client</li>
+        <li>Documentation d'exploitation</li>
+      </ul>
+      <div class="tags"><span class="tag">Windows Server</span><span class="tag">DHCP</span><span class="tag">DNS</span><span class="tag">Validation</span></div>
+    </div>
+
+  </div>
+</div>
+
+    <div class="bts-intro" style="display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+      <div style="flex:1;min-width:260px">
+        <span class="doc-badge" style="margin-bottom:10px">✨ Démo interactive</span>
+        <h4 style="font-size:1.1rem;margin:8px 0 8px;color:var(--txt)">Vitrine 3D — les mêmes projets, en immersif</h4>
+        <p style="color:var(--muted);font-size:.9rem;line-height:1.7;margin:0">Une version scroll-driven en Three.js de ce dossier BTS : la topologie réseau des missions ci-dessus s'y explore en 3D, avec HUD animé et flux de paquets en direct.</p>
+      </div>
+      <a class="doc-link" href="vitrine-3d.html" target="_blank" rel="noopener" style="white-space:nowrap;border:1px solid var(--border);padding:10px 20px;border-radius:50px">Explorer la vitrine 3D ↗</a>
+    </div>
 
     <div id="stages">
       <div class="bts-group-title"><h3>📋 Rapports de stage</h3><div class="line"></div></div>
