@@ -3,36 +3,36 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="color-scheme" content="light" />
+  <meta name="color-scheme" content="dark" />
   <title>Haute disponibilité avec Keepalived / VRRP · Noé Chami</title>
   <style>
     :root{
-      color-scheme: light;
-      --bg:#f5f7fb;
-      --surface:#ffffff;
-      --text:#0f172a;
-      --muted:#4d5567;
-      --line:#e2e8f0;
-      --line-strong:#d02d51;
-      --shadow:0 18px 46px rgba(15,23,42,.12);
-      --code-bg:#f1f5f9;
-      --code-border:#d8dee9;
+      color-scheme: dark;
+      --bg:#0d0521;
+      --surface:#1c1038;
+      --text:#e9e4f5;
+      --muted:#a99fc4;
+      --line:rgba(192,132,252,.18);
+      --line-strong:#a855f7;
+      --shadow:0 18px 46px rgba(0,0,0,.4);
+      --code-bg:#08030f;
+      --code-border:rgba(192,132,252,.18);
     }
     *{box-sizing:border-box}
     body{font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.6;margin:0;padding:32px;background:var(--bg);color:var(--text)}
     h1,h2,h3{color:var(--text);font-weight:700}
     h1{margin-top:0}
-    code,pre{background:var(--code-bg);border:1px solid var(--code-border);border-radius:10px;padding:10px;display:block;color:#0f172a;font-size:0.95rem}
+    code,pre{background:var(--code-bg);border:1px solid var(--code-border);border-radius:10px;padding:10px;display:block;color:var(--text);font-size:0.95rem}
     pre{overflow:auto;line-height:1.5}
     ul{padding-left:20px;color:var(--muted)}
-    .note{background:#fff9fb;border:1px solid rgba(208,45,81,.22);border-radius:12px;padding:14px;margin:16px 0;color:var(--muted);box-shadow:0 16px 32px rgba(208,45,81,.12)}
+    .note{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.28);border-radius:12px;padding:14px;margin:16px 0;color:var(--muted);box-shadow:0 16px 32px rgba(124,58,237,.15)}
     .section{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:18px;box-shadow:var(--shadow)}
   </style>
 <link rel="icon" href="./favicon.svg" type="image/svg+xml"/>
 <link rel="apple-touch-icon" href="./favicon-180.png"/>
 </head>
 <body>
-<p style="max-width:980px;margin:22px auto 0;padding:0 20px"><a href="../index.html#projets" style="display:inline-flex;gap:8px;align-items:center;padding:10px 15px;border-radius:12px;border:1px solid rgba(15,23,42,.12);background:#fff;color:#0f172a;text-decoration:none;font-weight:600">← Retour au portfolio</a></p>
+<p style="max-width:980px;margin:22px auto 0;padding:0 20px"><a href="../bts.html#projets" style="display:inline-flex;gap:8px;align-items:center;padding:10px 15px;border-radius:12px;border:1px solid var(--line);background:var(--surface);color:var(--text);text-decoration:none;font-weight:600">← Retour au dossier BTS</a></p>
   <h1>Haute disponibilité de passerelle avec Keepalived et VRRP</h1>
   <p>Objectif : assurer la continuité d’accès à l’adresse d’un service même en cas de panne du routeur principal.</p>
 
