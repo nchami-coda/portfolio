@@ -276,7 +276,7 @@ footer .heart{color:var(--purple)}
     <li><a href="#home">Accueil</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#experience">Expériences</a></li>
-    <li><a href="#projects">Projets</a></li>
+    <li><a href="bts.html#projets">Projets</a></li>
     <li><a href="#skills">Compétences</a></li>
     <li><a href="#certs">Certifications</a></li>
     <li><a href="#contact">Contact</a></li>
@@ -294,7 +294,7 @@ footer .heart{color:var(--purple)}
   <div class="name">NOÉ CHAMI</div>
   <div class="typeline"><span id="typed"></span><span class="cursor">|</span></div>
   <div class="hero-btns">
-    <a href="#projects" class="btn btn-solid">Voir mes projets</a>
+    <a href="bts.html#projets" class="btn btn-solid">Voir mes projets</a>
     <a href="#contact" class="btn btn-ghost">Me contacter</a>
   </div>
   <div class="scroll-hint">⌄</div>
@@ -311,7 +311,7 @@ footer .heart{color:var(--purple)}
       <p>Mes domaines d'intérêt incluent la <strong>cybersécurité</strong>, la <strong>haute disponibilité</strong> et la construction d'infrastructures fiables et documentées.</p>
     </div>
     <div class="stats">
-      <div class="stat"><div class="num">6+</div><div class="lbl">Projets documentés</div></div>
+      <div class="stat"><a href="bts.html#projets" style="text-decoration:none;color:inherit;display:block"><div class="num">6+</div><div class="lbl">Projets documentés</div></a></div>
       <div class="stat"><div class="num">5</div><div class="lbl">Certifications &amp; formations</div></div>
       <div class="stat"><div class="num">6</div><div class="lbl">Expériences &amp; immersions</div></div>
       <div class="stat"><div class="num">3 sem.</div><div class="lbl">De stage chez ADEFI</div></div>
@@ -361,110 +361,6 @@ footer .heart{color:var(--purple)}
   </div>
 </section>
 
-<!-- ================= PROJECTS ================= -->
-<section id="projects">
-  <h2 class="section-title">Projets</h2>
-  <p class="section-sub">Besoin identifié, réponse technique, outils mobilisés, résultat obtenu et preuves associées.</p>
-  <div class="projects-grid">
-
-    <div class="card">
-      <span class="badge">GSB · Mission 1</span>
-      <h3>Segmentation réseau et sécurisation d'un switch Cisco</h3>
-      <h4>Problème</h4>
-      <p>Le réseau devait être segmenté par services afin d'isoler les postes, réduire les erreurs de brassage et préparer une administration propre du switch.</p>
-      <h4>Solution</h4>
-      <p>Création des VLAN métiers, affectation des ports, VLAN de management et accès d'administration en SSH.</p>
-      <ul>
-        <li>Création et affectation de VLAN</li>
-        <li>Configuration d'une IP de management</li>
-        <li>Sécurisation de l'administration en SSH</li>
-        <li>Production de documents d'exploitation</li>
-      </ul>
-      <div class="tags"><span class="tag">Cisco 2960</span><span class="tag">VLAN</span><span class="tag">SSH</span><span class="tag">Recette</span></div>
-    </div>
-
-    <div class="card">
-      <span class="badge">GSB · Mission 2</span>
-      <h3>Interconnexion VLAN et sortie Internet via Stormshield</h3>
-      <h4>Problème</h4>
-      <p>Les VLAN internes devaient accéder à Internet sans perdre la séparation logique du réseau ni la lisibilité de la configuration.</p>
-      <h4>Solution</h4>
-      <p>Interfaces VLAN sur le firewall, route par défaut et NAT Masquerade avec vérification des flux.</p>
-      <ul>
-        <li>Configuration d'interfaces VLAN</li>
-        <li>Routage vers le WAN</li>
-        <li>Mise en œuvre du NAT</li>
-        <li>Tests et validation de connectivité</li>
-      </ul>
-      <div class="tags"><span class="tag">Stormshield</span><span class="tag">NAT</span><span class="tag">Filtrage</span><span class="tag">Routage</span></div>
-    </div>
-
-    <div class="card">
-      <span class="badge">GSB · Mission 3</span>
-      <h3>Infrastructure Active Directory, DNS et DHCP</h3>
-      <h4>Problème</h4>
-      <p>Centraliser la gestion des utilisateurs et des postes, résoudre les noms internes du domaine et éviter la configuration IP manuelle sur les clients.</p>
-      <h4>Solution</h4>
-      <p>Deux contrôleurs de domaine Windows Server 2025, DNS intégré à l'annuaire et DHCP sous Debian distribuant passerelle, suffixe DNS et serveurs DNS internes.</p>
-      <ul>
-        <li>Promotion d'un contrôleur de domaine (swiss-galaxyB2.com)</li>
-        <li>DNS intégré à Active Directory</li>
-        <li>DHCP pour les VLAN du contexte GSB</li>
-        <li>Validation client : ipconfig, nslookup, dcdiag, repadmin</li>
-      </ul>
-      <div class="tags"><span class="tag">Windows Server</span><span class="tag">Active Directory</span><span class="tag">DNS</span><span class="tag">DHCP</span></div>
-    </div>
-
-    <div class="card">
-      <span class="badge">Cybersécurité</span>
-      <h3>Audit de vulnérabilités avec Nessus sur UnrealIRCd</h3>
-      <h4>Problème</h4>
-      <p>Déterminer si un service exposé présente une vulnérabilité critique et mesurer le niveau de risque pour l'infrastructure ciblée.</p>
-      <h4>Solution</h4>
-      <p>Scan Nessus, analyse du cas UnrealIRCd (CVE-2010-2075), interprétation des résultats puis synthèse des risques et contre-mesures.</p>
-      <ul>
-        <li>Lecture et qualification d'un scan</li>
-        <li>Analyse d'une faille de type RCE</li>
-        <li>Rédaction de contre-mesures</li>
-        <li>Restitution structurée</li>
-      </ul>
-      <div class="tags"><span class="tag">Nessus</span><span class="tag">Analyse</span><span class="tag">Risque</span><span class="tag">Contre-mesures</span></div>
-    </div>
-
-    <div class="card">
-      <span class="badge">Haute disponibilité</span>
-      <h3>Redondance de passerelle avec Keepalived et VRRP</h3>
-      <h4>Problème</h4>
-      <p>Une passerelle unique constitue un point de défaillance : si le routeur tombe, tout le réseau perd son accès.</p>
-      <h4>Solution</h4>
-      <p>Deux routeurs Debian exécutant Keepalived partagent une adresse virtuelle via VRRP. Le maître porte la VIP ; en cas de panne, le secours la reprend automatiquement.</p>
-      <ul>
-        <li>Configuration d'une instance VRRP</li>
-        <li>Priorités maître / secours</li>
-        <li>Test de bascule et de retour</li>
-        <li>Supervision par track_script</li>
-      </ul>
-      <div class="tags"><span class="tag">Debian</span><span class="tag">Keepalived</span><span class="tag">VRRP</span><span class="tag">Bascule</span></div>
-    </div>
-
-    <div class="card">
-      <span class="badge">Services réseau</span>
-      <h3>Déploiement d'un service DHCP sous Windows Server</h3>
-      <h4>Problème</h4>
-      <p>Les postes devaient recevoir automatiquement leur configuration IP afin de limiter les erreurs manuelles et standardiser la mise en service.</p>
-      <h4>Solution</h4>
-      <p>Création d'une étendue DHCP, définition des options réseau puis contrôle du renouvellement de bail côté client, avec documentation web et PDF.</p>
-      <ul>
-        <li>Création d'étendue DHCP</li>
-        <li>Paramétrage DNS et passerelle</li>
-        <li>Vérification des baux côté client</li>
-        <li>Documentation d'exploitation</li>
-      </ul>
-      <div class="tags"><span class="tag">Windows Server</span><span class="tag">DHCP</span><span class="tag">DNS</span><span class="tag">Validation</span></div>
-    </div>
-
-  </div>
-</section>
 
 <!-- ================= SKILLS ================= -->
 <section id="skills">
