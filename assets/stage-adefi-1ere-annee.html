@@ -61,7 +61,7 @@
       <span>🏢 Adefi Informatique</span>
       <span>👤 Tuteur : M. Cédric Duval</span>
       <span>📅 Durée : 6 semaines</span>
-      <span>📍 Option SISR</span>
+      <span>📍 Meung-sur-Loire · option SISR</span>
     </div>
   </div>
 </header>
@@ -116,16 +116,16 @@
       <article class="highlight">
         <span class="highlight__num">1</span>
         <div>
-          <h3>Migration d'un serveur d'entreprise sans coupure de service</h3>
+          <h3>Migration du serveur d'un client sans gêner les utilisateurs</h3>
           <dl>
             <dt>Situation</dt>
-            <dd>Un serveur d'entreprise devait être remplacé, alors que les utilisateurs travaillaient dessus toute la journée. Une bascule ratée, c'est une entreprise à l'arrêt.</dd>
+            <dd>Le serveur d'un client (une collectivité, domaine <code>mairie.local</code>) devait être remplacé, alors que les agents travaillaient dessus toute la journée. Une bascule ratée, ce sont des services municipaux à l'arrêt.</dd>
             <dt>Ce que j'ai fait</dt>
             <dd>Préparation des machines virtuelles, reprise du DNS et des passerelles, migration d'Active Directory et des données, puis <strong>transfert des rôles FSMO</strong> vers le nouveau serveur. La bascule a été réalisée de nuit, hors présence des utilisateurs.</dd>
           </dl>
           <dl class="highlight__result">
             <dt>Résultat</dt>
-            <dd>Aucune interruption de service côté utilisateurs, Active Directory répliqué sur le nouveau serveur et rôles FSMO validés.</dd>
+            <dd>Bascule terminée avant l'arrivée des agents, Active Directory répliqué sur le nouveau serveur et les 5 rôles FSMO validés avec <code>netdom query fsmo</code>.</dd>
           </dl>
         </div>
       </article>
@@ -266,7 +266,7 @@
       <li>Récupération de données d'un PC bloqué via <strong>machine virtuelle Fedora</strong>.</li>
       <li>Réinitialisation complète d'un téléphone Samsung.</li>
       <li>Recherche et installation manuelle de pilotes inconnus.</li>
-      <li>Suppression d'un mot de passe Windows via <strong>outil bootable</strong>.</li>
+      <li>Réinitialisation du mot de passe d'un compte local Windows oublié, à la demande du propriétaire du poste, via un <strong>outil bootable</strong>.</li>
       <li>Prise en main à distance d'un serveur avec <strong>TeamViewer</strong>.</li>
       <li>Montage d'un <strong>PC Gamer (2 400 €)</strong> avec watercooling.</li>
       <li>Intervention en entreprise sur un NAS défaillant.</li>
@@ -278,7 +278,7 @@
 
     <p class="section-label">Ce que j'ai appris</p>
     <ul>
-      <li>Analyse des droits Windows et contournement sécurisé via outil bootable.</li>
+      <li>Fonctionnement des comptes locaux Windows et réinitialisation encadrée d'un accès perdu.</li>
       <li>Utilisation d'une VM Linux pour le dépannage hors-système.</li>
       <li>Montage avancé de PC haute performance (watercooling, gestion des câbles).</li>
       <li>Diagnostic alimentation, RAM, stockage.</li>
@@ -382,7 +382,7 @@
       <li>Réparation d'un ancien disque formaté en FAT32.</li>
       <li>Gestion d'un serveur NAS (accès à distance).</li>
       <li>Configuration d'un <strong>serveur RAID 10</strong> (4 disques, performance + redondance).</li>
-      <li>Analyse des journaux Windows — erreurs <strong>Power Kernel</strong> et <strong>TPM</strong>.</li>
+      <li>Analyse des journaux Windows — erreurs <strong>Kernel-Power</strong> et <strong>TPM</strong>.</li>
       <li>Intervention sur <strong>panne réseau totale</strong> dans une commune.</li>
       <li>Reconfiguration complète des switchs et imprimantes réseau.</li>
     </ul>
@@ -402,7 +402,7 @@
 
     <div class="proof-row">
       <div>
-        <h3>Observateur d'événements — Erreurs Power Kernel</h3>
+        <h3>Observateur d'événements — Erreurs Kernel-Power</h3>
         <p>Les journaux Windows montrent les erreurs d'arrêt brutal (Kernel-Power ID 41) utilisées pour diagnostiquer les problèmes d'alimentation et de stabilité serveur.</p>
       </div>
       <figure class="proof-media">
@@ -414,11 +414,11 @@
     <div class="proof-row">
       <div>
         <h3>RAID 10 — Gestionnaire de disques</h3>
-        <p>Configuration du serveur RAID 10 : 4 disques en miroir de bandes, offrant à la fois performance et tolérance aux pannes.</p>
+        <p>Configuration du serveur RAID 10 : 4 disques répartis en deux paires en miroir, puis agrégés en bandes. Le volume supporte la perte d'un disque par miroir : jusqu'à deux pannes si elles ne touchent pas la même paire.</p>
       </div>
       <figure class="proof-media">
         <img src="diskmgmt-raid10.webp" alt="Gestionnaire de disques Windows — RAID 10, 4 disques, 2 paires en miroir, statut Sain" loading="lazy" width="1448" height="1086" decoding="async"/>
-        <figcaption>Gestionnaire de disques · RAID-10 (R:) · 4 disques · 2 paires en miroir · Tolérance : 2 pannes · Statut : Sain</figcaption>
+        <figcaption>Gestionnaire de disques · RAID-10 (R:) · 4 disques · 2 paires en miroir · Tolérance : 1 disque par miroir · Statut : Sain</figcaption>
       </figure>
     </div>
   </section>
@@ -436,25 +436,25 @@
       <li>Ajout d'imprimantes dans le domaine Active Directory.</li>
       <li>Supervision de serveurs distants &amp; analyse des erreurs TPM.</li>
       <li>Intervention mairie (police + école) pour résoudre des problèmes réseau.</li>
-      <li><strong>Grand projet : transfert complet d'un serveur d'entreprise</strong>
+      <li><strong>Grand projet : remplacement du serveur d'une collectivité cliente</strong>
         <ul>
           <li>Configuration des machines virtuelles (VM)</li>
           <li>DNS, passerelles, paramètres réseau</li>
           <li>Migration Active Directory + données</li>
           <li>Transfert des rôles <strong>FSMO</strong> vers le nouveau serveur</li>
-          <li>Travail de nuit pour la bascule (zéro downtime)</li>
+          <li>Bascule réalisée de nuit, hors présence des utilisateurs</li>
         </ul>
       </li>
     </ul>
 
     <div class="callout success">
-      <strong>Point fort :</strong> Migration réalisée de nuit pour ne pas interrompre les utilisateurs — transfert des rôles FSMO validé, Active Directory répliqué sur le nouveau serveur avec zéro coupure de service.
+      <strong>Point fort :</strong> Migration réalisée de nuit pour ne pas gêner les utilisateurs : transfert des rôles FSMO validé et Active Directory répliqué sur le nouveau serveur avant la reprise d'activité.
     </div>
 
     <p class="section-label">Ce que j'ai appris</p>
     <ul>
       <li>Organisation d'une migration serveur réelle avec contrainte de continuité de service.</li>
-      <li>Gestion de l'Active Directory à grande échelle (OUs, GPO, utilisateurs).</li>
+      <li>Administration courante d'Active Directory : OU, GPO, comptes et imprimantes du domaine.</li>
       <li>Transfert des rôles FSMO entre contrôleurs de domaine.</li>
     </ul>
 
@@ -467,7 +467,7 @@
       </div>
       <figure class="proof-media">
         <img src="fsmo-netdom.webp" alt="CMD Windows Server — netdom query fsmo, 5 rôles FSMO sur SRV-AD02" loading="lazy" width="1448" height="1086" decoding="async"/>
-        <figcaption>CMD Windows Server · <code>netdom query fsmo</code> · 5 rôles FSMO transférés sur SRV-AD02.mairie.local</figcaption>
+        <figcaption>CMD Windows Server 2019 · <code>netdom query fsmo</code> · 5 rôles FSMO transférés sur SRV-AD02.mairie.local</figcaption>
       </figure>
     </div>
 
@@ -477,8 +477,8 @@
         <p>La console ADUC montrant l'ancien et le nouveau contrôleur de domaine présents dans le domaine pendant la migration.</p>
       </div>
       <figure class="proof-media">
-        <img src="aduc-domain-controllers.webp" alt="Console ADUC — OU Domain Controllers avec SRV-DC1 et SRV-DC2 listés" loading="lazy" width="1802" height="873" decoding="async"/>
-        <figcaption>Active Directory · Domain Controllers · SRV-DC1 et SRV-DC2 (Windows Server 2022 Standard)</figcaption>
+        <img src="aduc-domain-controllers.webp" alt="Console ADUC — OU Domain Controllers avec SRV-DC01 et SRV-DC02 listés" loading="lazy" width="1802" height="873" decoding="async"/>
+        <figcaption>Active Directory · mairie.local · Domain Controllers : SRV-DC01 et SRV-DC02 (Windows Server 2022 Standard)</figcaption>
       </figure>
     </div>
   </section>
@@ -522,7 +522,7 @@
     <h2>Bilan du stage</h2>
     <p>Ce stage m'a permis d'acquérir une vision complète et réaliste du métier de technicien et d'administrateur systèmes/réseaux en prestataire de services. La variété des interventions — du montage matériel à la migration de serveurs d'entreprise en passant par le dépannage réseau en collectivité — m'a confronté à des situations professionnelles authentiques que les cours seuls ne peuvent simuler.</p>
     <div class="callout success">
-      <strong>Point marquant :</strong> La migration nocturne du serveur d'entreprise avec transfert des rôles FSMO. Cette mission, réalisée avec une contrainte de zéro interruption de service, m'a démontré l'importance de la planification, de la rigueur et de la gestion du stress en conditions réelles.
+      <strong>Point marquant :</strong> La migration nocturne du serveur d'entreprise avec transfert des rôles FSMO. Cette mission, menée avec la contrainte de ne pas gêner les utilisateurs, m'a montré l'importance de la planification, de la rigueur et de la gestion du stress en conditions réelles.
     </div>
     <p>Je retiens également la confiance accordée par le tuteur M. Cédric Duval, qui m'a rapidement intégré aux interventions clients et m'a laissé une autonomie croissante au fil des semaines. Ce stage a confirmé et renforcé mon intérêt pour l'administration systèmes et réseaux.</p>
   </section>

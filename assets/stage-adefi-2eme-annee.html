@@ -48,9 +48,9 @@
   <div class="container">
     <span class="eyebrow">Stage BTS SIO · 2<sup>e</sup> année · 2026</span>
     <h1>Compte-rendu de Stage<br>Administration Systèmes, Réseaux &amp; Virtualisation</h1>
-    <p class="lead">Six semaines chez Adefi Informatique en 2ème année : virtualisation VMware ESXi, déploiement Active Directory, VPN SSL, migration de données et Veeam Backup.</p>
+    <p class="lead">Six semaines chez Adefi Informatique en 2<sup>e</sup> année : virtualisation VMware ESXi, déploiement Active Directory, VPN SSL, migration de données et Veeam Backup.</p>
     <div class="hero-meta">
-      <span>🏢 Adefi Informatique</span><span>👤 M. Cédric Duval</span><span>📅 6 semaines</span><span>📍 SISR</span>
+      <span>🏢 Adefi Informatique</span><span>👤 Tuteur : M. Cédric Duval</span><span>📅 6 semaines</span><span>📍 Meung-sur-Loire · option SISR</span>
     </div>
   </div>
 </header>
@@ -60,7 +60,7 @@
     <p class="section-label">Contexte</p><h2>Présentation de l'entreprise</h2>
     <div class="grid">
       <div>
-        <p>Adefi Informatique est une société de services informatiques intervenant auprès d'entreprises et de collectivités. En 2ème année, les missions sont à plus forte valeur technique : virtualisation, Active Directory, solutions de sauvegarde et sécurité réseau.</p>
+        <p>Adefi Informatique est une société de services informatiques intervenant auprès d'entreprises et de collectivités. En 2<sup>e</sup> année, les missions sont à plus forte valeur technique : virtualisation, Active Directory, solutions de sauvegarde et sécurité réseau.</p>
       </div>
       <div>
         <table><thead><tr><th>Informations</th><th>Détail</th></tr></thead><tbody>
@@ -73,7 +73,7 @@
     </div>
   </section>
   <section class="card">
-    <p class="section-label">Objectifs</p><h2>Missions de 2ème année</h2>
+    <p class="section-label">Objectifs</p><h2>Missions de 2<sup>e</sup> année</h2>
     <div class="steps">
       <div class="step"><span>1</span><div><h3>Virtualisation</h3><p>Installer et configurer VMware ESXi sur un serveur HPE physique.</p></div></div>
       <div class="step"><span>2</span><div><h3>Active Directory</h3><p>Déployer un nouveau DC Windows Server avec DNS, DHCP et GPO.</p></div></div>
@@ -197,14 +197,14 @@
     <div class="week-header"><span class="week-badge">Semaine 2</span><h2 style="margin:0">Tests matériels &amp; messagerie</h2></div>
     <p class="section-label">Activités principales</p>
     <ul>
-      <li>Tests et supervision d'un <strong>onduleur professionnel Nitram</strong> (SNMP, analyse coût/performance).</li>
+      <li>Tests et supervision d'un <strong>onduleur professionnel Nitram</strong> (SNMP, analyse coût / bénéfice).</li>
       <li>Configuration de la <strong>messagerie POP/IMAP</strong> sur serveur et postes utilisateurs.</li>
       <li>Diagnostic d'un <strong>ralentissement d'Outlook</strong> au démarrage.</li>
     </ul>
-    <div class="callout warn"><strong>Analyse coût/performance :</strong> La carte SNMP de l'onduleur Nitram offre une supervision complète mais trop coûteuse pour une petite structure. Alternative logicielle recommandée.</div>
+    <div class="callout warn"><strong>Analyse coût / bénéfice :</strong> La carte SNMP de l'onduleur Nitram offre une supervision complète mais trop coûteuse pour une petite structure. Alternative logicielle recommandée.</div>
     <p class="section-label" style="margin-top:24px">Preuves techniques</p>
     <div class="proof-row">
-      <div><h3>Onduleur Nitram — Dashboard</h3><p>Nitram UPS Monitoring : 230V entrée/sortie, charge 45%, batterie 100%, autonomie 12 min, Normal - Online.</p></div>
+      <div><h3>Onduleur Nitram — Dashboard</h3><p>Nitram UPS Monitoring : 230 V en entrée et en sortie, charge 45 %, batterie 100 %, autonomie 12 min, état Normal - Online.</p></div>
       <figure class="proof-media">
         <img src="nitram-ups.webp" alt="Nitram UPS Monitoring — 230V, 45% charge, 100% batterie, 12min, Normal Online" loading="lazy" width="1448" height="1086" decoding="async"/>
         <figcaption>Nitram UPS · 230V · Charge 45% · Batterie 100% · 12 min · Normal - Online</figcaption>
@@ -227,9 +227,9 @@
       <li>Création d'un <strong>compte VPN SSL</strong> sur routeur Zyxel et test de connexion depuis l'extérieur.</li>
       <li>Configuration <strong>TSE / RDP</strong> et test Bureau à distance via le tunnel VPN.</li>
       <li>Montage d'un ordinateur, installation de <strong>Windows 11 Pro</strong> avec activation de licence.</li>
-      <li>Transfert de fichiers via <strong>Linux Mint</strong> (contournement des restrictions NTFS Windows).</li>
+      <li>Récupération de fichiers depuis un <strong>live USB Linux Mint</strong>, lorsque Windows bloquait l'accès au disque.</li>
     </ul>
-    <div class="callout info"><strong>Technique :</strong> Boot sur Linux Mint depuis clé USB pour accéder aux fichiers sans contraintes NTFS Windows.</div>
+    <div class="callout info"><strong>Technique :</strong> démarrage sur Linux Mint depuis une clé USB pour lire le disque en dehors de Windows et copier les fichiers à conserver.</div>
     <p class="section-label" style="margin-top:24px">Preuves techniques</p>
     <div class="proof-row">
       <div><h3>VPN Zyxel — Compte vpn_adefi</h3><p>Zyxel ZyWALL USG80 SSL VPN User Accounts : compte vpn_adefi, groupe VPN_Users, Enabled, SSL-VPN.</p></div>
@@ -260,11 +260,11 @@
     <p class="section-label">Activités principales</p>
     <ul>
       <li>Création de l'utilisateur <strong>adefi</strong> avec droits sudo, suppression du compte <strong>OEM</strong>.</li>
-      <li>Audit réseau avec <strong>Nmap -sV</strong> du réseau client (12 hôtes identifiés).</li>
+      <li>Audit réseau avec <strong>Nmap -sV</strong> du réseau d'une mairie cliente (12 hôtes identifiés).</li>
       <li>Connexion <strong>SSH au Raspberry Pi</strong> pour administration distante.</li>
-      <li>Analyse des requêtes DNS et comportement de l'antivirus ESET.</li>
+      <li>Analyse des requêtes DNS et du comportement de l'antivirus ESET.</li>
     </ul>
-    <div class="callout warn"><strong>Problème :</strong> Utilisateur adefi créé sans droits admin. <strong>Solution :</strong> <code>usermod -aG sudo adefi</code> puis vérification avec <code>id adefi</code> (groupes=27(sudo)).</div>
+    <div class="callout warn"><strong>Problème :</strong> utilisateur adefi créé sans droits d'administration. <strong>Solution :</strong> <code>usermod -aG sudo adefi</code> puis vérification avec <code>id adefi</code> (groupes=27(sudo)).</div>
     <p class="section-label" style="margin-top:24px">Preuves techniques</p>
     <div class="proof-row">
       <div><h3>Terminal Linux — Gestion utilisateurs</h3><p>Séquence : useradd adefi → passwd → usermod -aG sudo → id adefi (sudo confirmé) → userdel -r oem.</p></div>
@@ -336,9 +336,9 @@
         <li>Formatage d'un disque 1 To pour le serveur Data.</li>
       </ul></div>
       <div><p><strong>Services :</strong></p><ul>
-        <li>Mise en place <strong>TSE et RDP</strong>.</li>
+        <li>Réattribution des accès <strong>TSE / RDP</strong> après la migration.</li>
         <li><strong>Veeam Backup</strong> (sauvegarde + réplication VMs).</li>
-        <li>Virtualisation d'un poste avec <strong>OpenBee</strong>.</li>
+        <li>Virtualisation d'un poste hébergeant le logiciel <strong>OpenBee</strong>.</li>
       </ul></div>
     </div>
     <div class="callout warn"><strong>Défi :</strong> Continuité de service pendant la migration. Solution : lots progressifs avec vérification d'intégrité, bascule planifiée hors heures de bureau.</div>
@@ -358,18 +358,18 @@
       </figure>
     </div>
     <div class="proof-row">
-      <div><h3>Serveur Data — Données &amp; partages réseau</h3><p>Disque Données D: avec ~161 Go occupés sur 930 Go, et partages réseau Entreprise, Utilisateurs, Commun accessibles au domaine.</p></div>
+      <div><h3>Serveur Data — Données &amp; partages réseau</h3><p>Disque Données D: avec ~182 Go occupés (749 Go libres sur 931 Go) après la migration, et partages réseau Entreprise, Utilisateurs et Commun accessibles au domaine.</p></div>
       <figure class="proof-media">
-        <img src="donnees-migrees.webp" alt="Windows Server Explorer — disque D: 161 Go, partages Entreprise/Utilisateurs/Commun" loading="lazy" width="1536" height="1024" decoding="async"/>
-        <figcaption>Windows Server · Disque D: ~161 Go · Partages : Entreprise, Utilisateurs, Commun</figcaption>
+        <img src="donnees-migrees.webp" alt="Windows Server Explorer — disque D: 182 Go utilisés, partages Entreprise/Utilisateurs/Commun" loading="lazy" width="1536" height="1024" decoding="async"/>
+        <figcaption>Windows Server 2019 · Disque D: ~182 Go utilisés · Partages : Entreprise, Utilisateurs, Commun</figcaption>
       </figure>
     </div>
   </section>
 
   <section class="card">
-    <p class="section-label">Synthèse</p><h2>Compétences acquises — 2ème année</h2>
+    <p class="section-label">Synthèse</p><h2>Compétences acquises — 2<sup>e</sup> année</h2>
     <table><thead><tr><th>Domaine</th><th>Compétence</th><th>Niveau</th></tr></thead><tbody>
-      <tr><td>Virtualisation</td><td>VMware ESXi, gestion VMs, OpenBee</td><td>Intermédiaire</td></tr>
+      <tr><td>Virtualisation</td><td>VMware ESXi, gestion des VM, virtualisation de poste</td><td>Intermédiaire</td></tr>
       <tr><td>Administration AD</td><td>Windows Server, DC, DNS, DHCP, FSMO, GPO, réplication</td><td>Avancé</td></tr>
       <tr><td>Sécurité / Accès</td><td>VPN SSL Zyxel, TSE, RDP, droits NTFS</td><td>Intermédiaire</td></tr>
       <tr><td>Administration Linux</td><td>Gestion utilisateurs, sudo, SSH, Nmap</td><td>Intermédiaire</td></tr>
@@ -394,7 +394,7 @@
   </div>
 
   <section class="card">
-    <p class="section-label">Conclusion</p><h2>Bilan du stage de 2ème année</h2>
+    <p class="section-label">Conclusion</p><h2>Bilan du stage de 2<sup>e</sup> année</h2>
     <p>Ce deuxième stage chez Adefi Informatique m'a permis d'aborder des problématiques techniques nettement plus complexes : virtualisation avec VMware ESXi, déploiement complet d'un Active Directory avec DNS/DHCP, mise en place de Veeam Backup et migration de données en production.</p>
     <div class="callout success"><strong>Points forts :</strong> Le déploiement de SRV-AD02 avec transfert des rôles FSMO et la mise en place de Veeam Backup — deux missions à fort impact opérationnel réalisées en autonomie croissante.</div>
     <p>Ce stage confirme ma montée en compétences et consolide mon projet professionnel orienté administration systèmes, réseaux et virtualisation.</p>

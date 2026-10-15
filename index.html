@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Noé Chami · Administrateur Systèmes & Réseaux</title>
-<meta name="description" content="Portfolio de Noé Chami, administrateur systèmes & réseaux — BTS SIO option SISR. Projets, expériences, compétences et certifications.">
+<meta name="description" content="Portfolio de Noé Chami, alternant administrateur systèmes, réseaux et cybersécurité chez Inetum Rennes — BTS SIO option SISR, parcours, stages et rapports.">
 <style>
 :root{
   --bg:#0d0521;
@@ -141,6 +141,32 @@ section{padding:90px 7% 60px;max-width:1200px;margin:0 auto}
 }
 .stat .lbl{color:var(--muted);font-size:.9rem;margin-top:4px}
 
+/* ---------- about : carte terminal ---------- */
+.about-txt .lede{font-size:1.12rem;color:var(--txt);line-height:1.75}
+.about-cta{display:flex;gap:14px;flex-wrap:wrap;margin-top:26px}
+.about-cta .btn{padding:11px 24px;font-size:.92rem}
+.term{
+  background:#0a0319;border:1px solid var(--border);border-radius:18px;overflow:hidden;
+  box-shadow:0 20px 50px rgba(0,0,0,.35),0 0 0 1px rgba(168,85,247,.08);
+  font-family:ui-monospace,"Cascadia Code","JetBrains Mono",Consolas,monospace;
+  transition:transform .3s,box-shadow .3s;
+}
+.term:hover{transform:translateY(-6px);box-shadow:0 26px 60px rgba(124,58,237,.3)}
+.term-bar{display:flex;align-items:center;gap:8px;padding:12px 16px;background:rgba(28,16,56,.9);border-bottom:1px solid var(--border)}
+.term-bar i{width:11px;height:11px;border-radius:50%;background:#3d2a66}
+.term-bar i:nth-child(1){background:#fb7185}.term-bar i:nth-child(2){background:#fbbf24}.term-bar i:nth-child(3){background:#4ade80}
+.term-bar span{margin-left:8px;font-size:.78rem;color:var(--muted)}
+.term-body{padding:18px 20px 20px;font-size:.86rem;line-height:1.75}
+.term-body .cmd{color:var(--txt)}
+.term-body .cmd::before{content:"$ ";color:var(--purple)}
+.term-body .out{color:var(--muted);margin-bottom:10px;padding-left:16px}
+.term-body .out b{color:var(--purple);font-weight:600}
+.term-body .dir{display:inline-block;color:#c4b5fd;margin-right:12px}
+.term-body .live{color:#4ade80}
+.term-body .live::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:#4ade80;box-shadow:0 0 10px #4ade80;margin-right:8px;animation:pulse 1.8s infinite}
+@keyframes pulse{50%{opacity:.35}}
+.term-body .caret{display:inline-block;width:8px;height:15px;background:var(--purple);vertical-align:-2px;animation:blink 1s steps(1) infinite}
+
 /* ---------- timeline ---------- */
 .timeline{position:relative;max-width:820px;margin:0 auto;padding-left:30px}
 .timeline::before{
@@ -276,7 +302,7 @@ footer .heart{color:var(--purple)}
     <li><a href="#home">Accueil</a></li>
     <li><a href="#about">À propos</a></li>
     <li><a href="#experience">Expériences</a></li>
-    <li><a href="bts.html#projets">Projets</a></li>
+    <li><a href="bts.html#stages">Stages</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a href="bts.html" class="nav-coda">🎓 BTS</a></li>
     <li><a href="inetum.html" class="nav-coda">💼 Inetum</a></li>
@@ -293,7 +319,7 @@ footer .heart{color:var(--purple)}
   <div class="name">NOÉ CHAMI</div>
   <div class="typeline"><span id="typed"></span><span class="cursor">|</span></div>
   <div class="hero-btns">
-    <a href="bts.html#projets" class="btn btn-solid">Voir mes projets</a>
+    <a href="#experience" class="btn btn-solid">Voir mon parcours</a>
     <a href="#contact" class="btn btn-ghost">Me contacter</a>
   </div>
   <div class="scroll-hint">⌄</div>
@@ -302,18 +328,32 @@ footer .heart{color:var(--purple)}
 <!-- ================= ABOUT ================= -->
 <section id="about">
   <h2 class="section-title">À propos de moi</h2>
-  <p class="section-sub">Qui je suis et ce que je fais</p>
+  <p class="section-sub">Ce qui doit marcher sans qu'on y pense : c'est mon métier.</p>
   <div class="about-grid">
     <div class="about-txt">
-      <p>Je suis <span class="hl">Administrateur Systèmes &amp; Réseaux</span>, diplômé du BTS SIO option SISR (2026) et actuellement en alternance chez <strong>Inetum à Rennes</strong>, sur le titre RNCP « Administrateur systèmes, réseaux et cybersécurité ».</p>
-      <p>Je conçois, déploie et documente des infrastructures réseau et systèmes : <strong>segmentation VLAN, Active Directory, virtualisation, sauvegarde et sécurisation des accès</strong>. Chaque projet présenté ici est accompagné de ses preuves : rapports, schémas, configurations et captures de validation.</p>
-      <p>Mes domaines d'intérêt incluent la <strong>cybersécurité</strong>, la <strong>haute disponibilité</strong> et la construction d'infrastructures fiables et documentées.</p>
+      <p class="lede">Je suis Noé, alternant <span class="hl">administrateur systèmes, réseaux &amp; cybersécurité</span> chez <strong>Inetum à Rennes</strong>, dans l'équipe réseau &amp; sécurité.</p>
+      <p>Mon terrain, c'est ce que personne ne voit quand tout va bien : l'annuaire, le réseau, les sauvegardes, les accès distants. En stage chez ADEFI, je l'ai pratiqué en production, chez de vrais clients : <strong>hyperviseur VMware ESXi</strong> monté sur serveur HPE, <strong>second contrôleur de domaine</strong> avec reprise des rôles FSMO, <strong>182 Go de données migrés</strong> et sauvegardes <strong>Veeam</strong> automatisées.</p>
+      <p>Passé par un lycée militaire et la 807ᵉ Compagnie des Transmissions, j'en garde une méthode : <strong>diagnostiquer avant d'agir, documenter ce que je fais</strong>, et ne jamais laisser une infrastructure dans un état que je ne saurais pas expliquer.</p>
+      <div class="about-cta">
+        <a href="#experience" class="btn btn-solid">Voir mon parcours</a>
+        <a href="cv.html" class="btn btn-ghost">Mon CV</a>
+      </div>
     </div>
-    <div class="stats">
-      <div class="stat"><a href="bts.html#projets" style="text-decoration:none;color:inherit;display:block"><div class="num">6+</div><div class="lbl">Projets documentés</div></a></div>
-      <div class="stat"><a href="bts.html#certs" style="text-decoration:none;color:inherit;display:block"><div class="num">5</div><div class="lbl">Certifications &amp; formations</div></a></div>
-      <div class="stat"><div class="num">6</div><div class="lbl">Expériences &amp; immersions</div></div>
-      <div class="stat"><div class="num">12 sem.</div><div class="lbl">De stage chez ADEFI</div></div>
+    <div class="term" aria-label="Profil en bref">
+      <div class="term-bar"><i></i><i></i><i></i><span>noe@rennes:~</span></div>
+      <div class="term-body">
+        <div class="cmd">whoami</div>
+        <div class="out"><b>Noé Chami</b> · admin systèmes, réseaux &amp; cyber</div>
+        <div class="cmd">cat poste.txt</div>
+        <div class="out">Alternant · <b>Inetum Rennes</b> · 2026 → 2027<br>Titre RNCP · CODA Orléans</div>
+        <div class="cmd">ls ~/terrain</div>
+        <div class="out"><span class="dir">active-directory/</span><span class="dir">vmware-esxi/</span><span class="dir">veeam/</span><span class="dir">vpn-ssl/</span><span class="dir">vlan/</span><span class="dir">kubernetes/</span></div>
+        <div class="cmd">cat parcours.txt</div>
+        <div class="out">BTS SIO SISR · diplômé 2026<br>12 semaines de stage en production (ADEFI)</div>
+        <div class="cmd">systemctl status noe</div>
+        <div class="out"><span class="live">active (running)</span> · ouvert aux échanges</div>
+        <div class="cmd"><span class="caret"></span></div>
+      </div>
     </div>
   </div>
 </section>
@@ -335,8 +375,8 @@ footer .heart{color:var(--purple)}
     <div class="tl-item"><div class="tl-card">
       <span class="date">2025 – 2026 · 12 semaines</span>
       <h3>Stages techniques en informatique (1ʳᵉ &amp; 2ᵉ année)</h3><h4>ADEFI · Meung-sur-Loire · 2 × 6 semaines</h4>
-      <p>Support, administration systèmes et réseaux, virtualisation, migration serveur, Active Directory, sauvegardes et documentation technique, avec un niveau de responsabilité plus élevé en deuxième année : configuration VLAN, supervision, diagnostics avancés et administration NAS Synology.</p>
-      <div class="tags"><span class="tag">Zyxel</span><span class="tag">VLAN</span><span class="tag">Synology</span><span class="tag">Bash</span></div>
+      <p><strong style="color:var(--txt)">1ʳᵉ année :</strong> interventions terrain chez des entreprises et collectivités : diagnostic matériel, RAID et NAS Synology, déploiement réseau (switch Zyxel, VLAN, brassage) et migration de serveur avec transfert des rôles FSMO.<br><strong style="color:var(--txt)">2ᵉ année :</strong> missions plus techniques et plus autonomes : virtualisation VMware ESXi, second contrôleur de domaine (DNS, DHCP, GPO), VPN SSL Zyxel et accès TSE, migration de 182 Go de données et sauvegardes Veeam.</p>
+      <div class="tags"><span class="tag">Active Directory</span><span class="tag">VMware ESXi</span><span class="tag">Veeam</span><span class="tag">Zyxel</span><span class="tag">VLAN</span><span class="tag">Synology</span></div>
       <div class="tags" style="margin-top:14px">
         <a class="cert-link" href="assets/stage-adefi-1ere-annee.html" target="_blank" rel="noopener">Rapport 1ʳᵉ année ↗</a>
         <a class="cert-link" href="assets/stage-adefi-2eme-annee.html" target="_blank" rel="noopener">Rapport 2ᵉ année ↗</a>
@@ -345,10 +385,10 @@ footer .heart{color:var(--purple)}
     <div class="tl-item"><div class="tl-card">
       <span class="date">2024 – 2026 · Orléans</span>
       <h3>BTS SIO — option SISR (2 ans) · diplômé</h3><h4>Lycée Benjamin Franklin · Orléans</h4>
-      <p>Deux années consacrées aux infrastructures systèmes et réseaux : missions GSB (VLAN, Active Directory, DHCP, haute disponibilité Keepalived), audit de vulnérabilités Nessus et veille technologique, avec les stages ADEFI en entreprise.</p>
+      <p>Deux années consacrées aux infrastructures systèmes et réseaux (Windows Server, Linux, réseaux Cisco, sécurité des accès) et à la veille technologique, complétées par 12 semaines de stage en entreprise chez ADEFI.</p>
       <div class="tags"><span class="tag">SISR</span><span class="tag">Windows Server</span><span class="tag">Linux</span><span class="tag">Cisco</span></div>
       <div class="tags" style="margin-top:14px">
-        <a class="cert-link" href="bts.html">Voir le dossier BTS →</a>
+        <a class="cert-link" href="bts.html#stages">Voir les rapports de stage →</a>
       </div>
     </div></div>
     <div class="tl-item"><div class="tl-card">
@@ -383,7 +423,7 @@ footer .heart{color:var(--purple)}
 <!-- ================= FOOTER / CONTACT ================= -->
 <footer id="contact">
   <h2 class="section-title">Contact</h2>
-  <p class="section-sub">N'hésitez pas à me contacter pour toute question liée au portfolio, aux projets présentés ou à mon parcours.</p>
+  <p class="section-sub">N'hésitez pas à me contacter pour toute question liée au portfolio, à mes stages ou à mon parcours.</p>
   <div class="socials">
     <a href="https://github.com/nchami-coda" title="GitHub" target="_blank" rel="noopener">GH</a>
     <a href="mailto:chaminoe0@gmail.com" title="Email">@</a>

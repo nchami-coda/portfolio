@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Dossier BTS SIO · Noé Chami</title>
-<meta name="description" content="Dossier complet BTS SIO option SISR de Noé Chami — rapports de stage, certifications, fiches techniques et documents officiels.">
+<title>Stages BTS SIO · Noé Chami</title>
+<meta name="description" content="Rapports de stage BTS SIO option SISR de Noé Chami : deux stages de six semaines chez ADEFI Informatique (Active Directory, VMware ESXi, Veeam, réseau).">
 <style>
 :root{
   --bg:#0d0521;
@@ -171,70 +171,6 @@ section{padding:90px 7% 60px;max-width:1200px;margin:0 auto}
   padding:4px 12px;border-radius:20px;
 }
 
-/* ---------- projects ---------- */
-.projects-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:26px}
-.card{
-  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;
-  display:flex;flex-direction:column;transition:transform .25s,box-shadow .25s,border-color .25s;
-}
-.card:hover{transform:translateY(-7px);box-shadow:0 16px 38px rgba(124,58,237,.3);border-color:var(--purple2)}
-.card .badge{
-  align-self:flex-start;font-size:.7rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
-  background:linear-gradient(90deg,var(--purple2),var(--purple3));color:#fff;
-  padding:5px 14px;border-radius:20px;margin-bottom:14px;
-}
-.card h3{font-size:1.15rem;margin-bottom:12px}
-.card h4{font-size:.8rem;color:var(--purple2);letter-spacing:.5px;margin-bottom:10px;text-transform:uppercase}
-.card p{color:var(--muted);line-height:1.65;font-size:.9rem;flex-grow:1}
-.card ul{list-style:none;margin-top:12px}
-.card ul li{color:var(--muted);font-size:.86rem;padding:3px 0 3px 20px;position:relative}
-.card ul li::before{
-  content:"▸";position:absolute;left:0;color:var(--purple);
-}
-
-/* ---------- skills ---------- */
-.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
-.skill-cat{
-  background:var(--card);border:1px solid var(--border);border-radius:18px;padding:26px;
-  transition:transform .25s,box-shadow .25s;
-}
-.skill-cat:hover{transform:translateY(-6px);box-shadow:0 14px 32px rgba(124,58,237,.28)}
-.skill-cat .icon{font-size:1.8rem;margin-bottom:10px}
-.skill-cat h3{
-  font-size:1.1rem;margin-bottom:14px;
-  background:linear-gradient(90deg,var(--purple),var(--purple2));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.skill-cat ul{list-style:none}
-.skill-cat li{color:var(--muted);padding:5px 0 5px 22px;position:relative;font-size:.93rem}
-.skill-cat li::before{content:"✦";position:absolute;left:0;color:var(--purple);font-size:.8rem}
-.comp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:40px}
-.comp{
-  background:var(--card);border:1px solid var(--border);border-radius:14px;padding:20px;
-  transition:transform .25s,border-color .25s;
-}
-.comp:hover{transform:translateY(-4px);border-color:var(--purple2)}
-.comp .lvl{color:var(--purple);letter-spacing:3px;font-size:.85rem;margin-bottom:6px}
-.comp h4{font-size:.95rem;margin-bottom:6px}
-.comp p{color:var(--muted);font-size:.82rem;line-height:1.55}
-.comp .src{color:var(--purple2);font-size:.75rem;margin-top:8px;font-weight:600}
-
-/* ---------- certifications ---------- */
-.cert-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:22px}
-.cert{
-  background:var(--card);border:1px solid var(--border);border-radius:16px;padding:24px;
-  transition:transform .25s,box-shadow .25s;
-}
-.cert:hover{transform:translateY(-6px);box-shadow:0 14px 30px rgba(124,58,237,.3)}
-.cert .org{
-  display:inline-block;font-size:.7rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;
-  color:var(--purple);background:rgba(168,85,247,.12);padding:4px 12px;border-radius:20px;margin-bottom:12px;
-}
-.cert h3{font-size:1.05rem;margin-bottom:8px}
-.cert p{color:var(--muted);font-size:.86rem;line-height:1.6}
-.cert-link{display:inline-block;margin-top:14px;color:var(--purple);font-size:.83rem;font-weight:700;text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
-.cert-link:hover{border-color:var(--purple)}
-
 /* ---------- footer ---------- */
 footer{
   position:relative;z-index:1;text-align:center;padding:50px 7% 40px;
@@ -292,6 +228,10 @@ footer .heart{color:var(--purple)}
 }
 .bts-intro{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:32px;margin-bottom:50px}
 .bts-intro p{color:var(--muted);line-height:1.8;max-width:780px}
+.stage-grid{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.stage-grid .doc-card{padding:26px 28px}
+.stage-grid .doc-card h4{font-size:1.15rem}
+.stage-grid .tags{margin-top:2px}
 .bts-intro .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:16px;margin-top:24px}
 </style>
 
@@ -306,11 +246,8 @@ footer .heart{color:var(--purple)}
   <a href="index.html" class="logo" style="text-decoration:none">NC.</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="index.html">← Portfolio</a></li>
-    <li><a href="#projets">Projets</a></li>
     <li><a href="#stages">Stages</a></li>
-    <li><a href="#certs">Certifications</a></li>
-    <li><a href="#technique">Fiches techniques</a></li>
-    <li><a href="#officiels">Documents officiels</a></li>
+    <li><a href="cv.html">CV</a></li>
   </ul>
   <button class="burger" id="burger">☰</button>
 </nav>
@@ -318,224 +255,38 @@ footer .heart{color:var(--purple)}
 <main>
 
 <section style="padding-top:130px">
-  <h2 class="section-title">Dossier BTS SIO — Option SISR</h2>
-  <p class="section-sub">L'ensemble de mon dossier de BTS SIO : rapports de stage, certifications, fiches techniques et documents officiels — tout ce qui a été produit pendant les deux années de formation.</p>
+  <h2 class="section-title">Stages BTS SIO — Option SISR</h2>
+  <p class="section-sub">Deux stages de six semaines chez ADEFI Informatique, à Meung-sur-Loire : douze semaines d'interventions en production chez des entreprises et des collectivités.</p>
 
   <div class="bts-intro">
-    <p>Diplômé du <strong style="color:var(--txt)">BTS SIO option SISR</strong> (2024 – 2026) au Lycée Benjamin Franklin d'Orléans. Cette page rassemble les pièces détaillées de mon dossier — on y trouve les projets techniques (Missions GSB, audit Nessus, Keepalived, DHCP), les rapports de stage, les certifications et les justificatifs officiels.</p>
-    <div class="stats">
-      <div class="stat"><div class="num">6</div><div class="lbl">Projets techniques</div></div>
-      <div class="stat"><div class="num">2</div><div class="lbl">Rapports de stage</div></div>
-      <div class="stat"><div class="num">5</div><div class="lbl">Certifications</div></div>
-      <div class="stat"><div class="num">1</div><div class="lbl">Fiche technique</div></div>
-      <div class="stat"><div class="num">2</div><div class="lbl">Documents officiels</div></div>
-    </div>
+    <p>Diplômé du <strong style="color:var(--txt)">BTS SIO option SISR</strong> (2024 – 2026) au Lycée Benjamin Franklin d'Orléans. Chaque rapport présente les trois ou quatre interventions les plus marquantes (situation, actions, résultat), le détail semaine par semaine et les captures qui les illustrent.</p>
   </div>
 
   <div class="bts-groups">
-
-    <!-- ================= PROJECTS ================= -->
-<div id="projets">
-  <div class="bts-group-title"><h3>🧩 Projets techniques (Missions GSB &amp; Cybersécurité)</h3><div class="line"></div></div>
-  <div class="projects-grid">
-
-    <div class="card">
-      <span class="badge">GSB · Mission 1</span>
-      <h3>Segmentation réseau et sécurisation d'un switch Cisco</h3>
-      <h4>Problème</h4>
-      <p>Le réseau devait être segmenté par services afin d'isoler les postes, réduire les erreurs de brassage et préparer une administration propre du switch.</p>
-      <h4>Solution</h4>
-      <p>Création des VLAN métiers, affectation des ports, VLAN de management et accès d'administration en SSH.</p>
-      <ul>
-        <li>Création et affectation de VLAN</li>
-        <li>Configuration d'une IP de management</li>
-        <li>Sécurisation de l'administration en SSH</li>
-        <li>Production de documents d'exploitation</li>
-      </ul>
-      <div class="tags"><span class="tag">Cisco 2960</span><span class="tag">VLAN</span><span class="tag">SSH</span><span class="tag">Recette</span></div>
-      <img src="assets/plan-vlan.webp" alt="Plan d'adressage VLAN" style="width:100%;border-radius:12px;margin-top:16px;border:1px solid var(--border)">
-    </div>
-
-    <div class="card">
-      <span class="badge">GSB · Mission 2</span>
-      <h3>Interconnexion VLAN et sortie Internet via Stormshield</h3>
-      <h4>Problème</h4>
-      <p>Les VLAN internes devaient accéder à Internet sans perdre la séparation logique du réseau ni la lisibilité de la configuration.</p>
-      <h4>Solution</h4>
-      <p>Interfaces VLAN sur le firewall, route par défaut et NAT Masquerade avec vérification des flux.</p>
-      <ul>
-        <li>Configuration d'interfaces VLAN</li>
-        <li>Routage vers le WAN</li>
-        <li>Mise en œuvre du NAT</li>
-        <li>Tests et validation de connectivité</li>
-      </ul>
-      <div class="tags"><span class="tag">Stormshield</span><span class="tag">NAT</span><span class="tag">Filtrage</span><span class="tag">Routage</span></div>
-    </div>
-
-    <div class="card">
-      <span class="badge">GSB · Mission 3</span>
-      <h3>Infrastructure Active Directory, DNS et DHCP</h3>
-      <h4>Problème</h4>
-      <p>Centraliser la gestion des utilisateurs et des postes, résoudre les noms internes du domaine et éviter la configuration IP manuelle sur les clients.</p>
-      <h4>Solution</h4>
-      <p>Deux contrôleurs de domaine Windows Server 2025, DNS intégré à l'annuaire et DHCP sous Debian distribuant passerelle, suffixe DNS et serveurs DNS internes.</p>
-      <ul>
-        <li>Promotion d'un contrôleur de domaine (swiss-galaxyB2.com)</li>
-        <li>DNS intégré à Active Directory</li>
-        <li>DHCP pour les VLAN du contexte GSB</li>
-        <li>Validation client : ipconfig, nslookup, dcdiag, repadmin</li>
-      </ul>
-      <div class="tags"><span class="tag">Windows Server</span><span class="tag">Active Directory</span><span class="tag">DNS</span><span class="tag">DHCP</span></div>
-    </div>
-
-    <div class="card">
-      <span class="badge">Cybersécurité</span>
-      <h3>Audit de vulnérabilités avec Nessus sur UnrealIRCd</h3>
-      <h4>Problème</h4>
-      <p>Déterminer si un service exposé présente une vulnérabilité critique et mesurer le niveau de risque pour l'infrastructure ciblée.</p>
-      <h4>Solution</h4>
-      <p>Scan Nessus, analyse du cas UnrealIRCd (CVE-2010-2075), interprétation des résultats puis synthèse des risques et contre-mesures.</p>
-      <ul>
-        <li>Lecture et qualification d'un scan</li>
-        <li>Analyse d'une faille de type RCE</li>
-        <li>Rédaction de contre-mesures</li>
-        <li>Restitution structurée</li>
-      </ul>
-      <div class="tags"><span class="tag">Nessus</span><span class="tag">Analyse</span><span class="tag">Risque</span><span class="tag">Contre-mesures</span></div>
-    </div>
-
-    <div class="card">
-      <span class="badge">Haute disponibilité</span>
-      <h3>Redondance de passerelle avec Keepalived et VRRP</h3>
-      <h4>Problème</h4>
-      <p>Une passerelle unique constitue un point de défaillance : si le routeur tombe, tout le réseau perd son accès.</p>
-      <h4>Solution</h4>
-      <p>Deux routeurs Debian exécutant Keepalived partagent une adresse virtuelle via VRRP. Le maître porte la VIP ; en cas de panne, le secours la reprend automatiquement.</p>
-      <ul>
-        <li>Configuration d'une instance VRRP</li>
-        <li>Priorités maître / secours</li>
-        <li>Test de bascule et de retour</li>
-        <li>Supervision par track_script</li>
-      </ul>
-      <div class="tags"><span class="tag">Debian</span><span class="tag">Keepalived</span><span class="tag">VRRP</span><span class="tag">Bascule</span></div>
-      <a class="doc-link" href="assets/Keepalived.html" target="_blank" rel="noopener" style="margin-top:14px">Voir la fiche technique ↗</a>
-    </div>
-
-    <div class="card">
-      <span class="badge">Services réseau</span>
-      <h3>Déploiement d'un service DHCP sous Windows Server</h3>
-      <h4>Problème</h4>
-      <p>Les postes devaient recevoir automatiquement leur configuration IP afin de limiter les erreurs manuelles et standardiser la mise en service.</p>
-      <h4>Solution</h4>
-      <p>Création d'une étendue DHCP, définition des options réseau puis contrôle du renouvellement de bail côté client, avec documentation web et PDF.</p>
-      <ul>
-        <li>Création d'étendue DHCP</li>
-        <li>Paramétrage DNS et passerelle</li>
-        <li>Vérification des baux côté client</li>
-        <li>Documentation d'exploitation</li>
-      </ul>
-      <div class="tags"><span class="tag">Windows Server</span><span class="tag">DHCP</span><span class="tag">DNS</span><span class="tag">Validation</span></div>
-    </div>
-
-  </div>
-</div>
-
-
     <div id="stages">
       <div class="bts-group-title"><h3>📋 Rapports de stage</h3><div class="line"></div></div>
-      <div class="doc-grid">
+      <div class="doc-grid stage-grid">
         <div class="doc-card">
-          <span class="doc-badge">ADEFI · 2025</span>
-          <h4>Stage technique en informatique — 1ʳᵉ année</h4>
-          <p>Interventions terrain, support et diagnostic matériel, RAID 1/10 et NAS Synology, déploiement réseau (switch Zyxel, VLAN, brassage), migration de serveur et transfert des rôles FSMO de nuit.</p>
+          <span class="doc-badge">ADEFI · 1ʳᵉ année · 2025</span>
+          <h4>Technicien systèmes &amp; réseaux sur le terrain</h4>
+          <p>Six semaines d'interventions chez des clients : diagnostic matériel, RAID 1 / RAID 10 et NAS Synology, déploiement réseau (switch Zyxel, VLAN, brassage), panne réseau totale dans une commune, et migration de serveur de nuit avec transfert des rôles FSMO.</p>
+          <div class="tags"><span class="tag">Active Directory</span><span class="tag">FSMO</span><span class="tag">RAID</span><span class="tag">Zyxel</span><span class="tag">VLAN</span></div>
           <a class="doc-link" href="assets/stage-adefi-1ere-annee.html" target="_blank" rel="noopener">Consulter le rapport ↗</a>
         </div>
         <div class="doc-card">
-          <span class="doc-badge">ADEFI · 2026</span>
-          <h4>Stage technique en informatique — 2ᵉ année</h4>
-          <p>Virtualisation VMware ESXi, contrôleur de domaine Windows Server (DNS, DHCP, GPO), VPN SSL Zyxel, migration de ~182 Go avec transfert FSMO, sauvegardes Veeam.</p>
+          <span class="doc-badge">ADEFI · 2ᵉ année · 2026</span>
+          <h4>Administration systèmes, réseaux &amp; virtualisation</h4>
+          <p>Missions plus techniques, en autonomie croissante : hyperviseur VMware ESXi sur serveur HPE, second contrôleur de domaine (DNS, DHCP, GPO), VPN SSL Zyxel et accès TSE, migration de 182 Go de données avec reprise des rôles FSMO, sauvegardes Veeam.</p>
+          <div class="tags"><span class="tag">VMware ESXi</span><span class="tag">Active Directory</span><span class="tag">Veeam</span><span class="tag">VPN SSL</span><span class="tag">Linux</span></div>
           <a class="doc-link" href="assets/stage-adefi-2eme-annee.html" target="_blank" rel="noopener">Consulter le rapport ↗</a>
         </div>
       </div>
     </div>
-
-    <div id="certs">
-      <div class="bts-group-title"><h3>🎓 Certifications</h3><div class="line"></div></div>
-      <div class="doc-grid">
-        <div class="doc-card">
-          <span class="doc-badge">ANSSI</span>
-          <h4>SecNumacadémie</h4>
-          <p>Certification de sensibilisation à la sécurité numérique : authentification, protection du poste, sécurité Internet, bonnes pratiques SSI.</p>
-          <a class="doc-link" href="assets/certif-anssi.html" target="_blank" rel="noopener">Voir la certification ↗</a>
-        </div>
-        <div class="doc-card">
-          <span class="doc-badge">OpenClassrooms</span>
-          <h4>Administrez un système Linux</h4>
-          <p>Terminal, droits, services, supervision et administration système sous Linux.</p>
-          <a class="doc-link" href="assets/certif-linux.html" target="_blank" rel="noopener">Voir la certification ↗</a>
-        </div>
-        <div class="doc-card">
-          <span class="doc-badge">OpenClassrooms</span>
-          <h4>Administrez une architecture réseau avec Cisco</h4>
-          <p>CLI Cisco, VLAN, routage, ACL, services réseau et sécurisation d'une infrastructure.</p>
-          <a class="doc-link" href="assets/certif-cisco.html" target="_blank" rel="noopener">Voir la certification ↗</a>
-        </div>
-        <div class="doc-card">
-          <span class="doc-badge">OpenClassrooms</span>
-          <h4>Déployez vos systèmes et réseaux dans le cloud avec AWS</h4>
-          <p>Architectures cloud, VPC, EC2, supervision et maintien en condition opérationnelle.</p>
-          <a class="doc-link" href="assets/certif-aws.html" target="_blank" rel="noopener">Voir la certification ↗</a>
-        </div>
-        <div class="doc-card">
-          <span class="doc-badge">OpenClassrooms</span>
-          <h4>Optimisez votre déploiement avec Docker</h4>
-          <p>Conteneurisation, images, Docker Compose, Docker Swarm et sécurisation du déploiement.</p>
-          <a class="doc-link" href="assets/certif-docker.html" target="_blank" rel="noopener">Voir la certification ↗</a>
-        </div>
-      </div>
-    </div>
-
-    <div id="technique">
-      <div class="bts-group-title"><h3>🛠️ Fiches techniques</h3><div class="line"></div></div>
-      <div class="doc-grid">
-        <div class="doc-card">
-          <span class="doc-badge">Haute disponibilité</span>
-          <h4>Redondance de passerelle avec Keepalived et VRRP</h4>
-          <p>Deux routeurs Debian exécutant Keepalived partagent une adresse virtuelle via VRRP — bascule automatique en cas de panne du maître.</p>
-          <a class="doc-link" href="assets/Keepalived.html" target="_blank" rel="noopener">Consulter la fiche ↗</a>
-        </div>
-      </div>
-    </div>
-
-    <div id="officiels">
-      <div class="bts-group-title"><h3>📄 Documents officiels</h3><div class="line"></div></div>
-      <div class="doc-grid">
-        <div class="doc-card">
-          <span class="doc-badge">Synthèse</span>
-          <h4>Fiche de justification des croix</h4>
-          <p>Tableau de synthèse BTS SIO — justification de chaque compétence validée par une réalisation concrète du dossier.</p>
-          <a class="doc-link" href="assets/fiche-justification-croix.html" target="_blank" rel="noopener">Consulter la fiche ↗</a>
-        </div>
-        <div class="doc-card">
-          <span class="doc-badge">PDF</span>
-          <h4>Attestation ANSSI — SecNumacadémie</h4>
-          <p>Attestation officielle de la certification de sensibilisation à la sécurité numérique.</p>
-          <a class="doc-link" href="Documents/attestation-anssi.pdf" target="_blank" rel="noopener">Ouvrir le PDF ↗</a>
-        </div>
-        <div class="doc-card">
-          <span class="doc-badge">PDF</span>
-          <h4>Attestation de stage — 1ʳᵉ année</h4>
-          <p>Attestation officielle du stage technique en informatique effectué chez ADEFI en 1ʳᵉ année.</p>
-          <a class="doc-link" href="Documents/attestation-stage-1ere-annee.pdf" target="_blank" rel="noopener">Ouvrir le PDF ↗</a>
-        </div>
-      </div>
-    </div>
-
   </div>
 </section>
 
 <footer id="contact">
-  <p class="section-sub" style="margin-bottom:24px">Retrouve la vue d'ensemble des projets, compétences et expériences sur la page d'accueil.</p>
+  <p class="section-sub" style="margin-bottom:24px">Retrouve mon parcours complet et l'alternance Inetum sur la page d'accueil.</p>
   <div class="socials">
     <a href="index.html" title="Portfolio">←</a>
     <a href="cv.html" title="CV">CV</a>

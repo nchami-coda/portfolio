@@ -595,3 +595,33 @@ html { scroll-behavior: smooth; }
   .photo::before,
   .eyebrow::after { animation: none !important; }
 }
+
+/* ── Listes de réalisations dans la timeline ───────────────── */
+.timeline-item ul {
+  list-style: none;
+  margin: 0;
+  display: grid;
+  gap: 6px;
+}
+.timeline-item li {
+  position: relative;
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.timeline-item li::before {
+  content: "";
+  position: absolute;
+  left: 2px; top: 0.62em;
+  width: 7px; height: 7px;
+  border-radius: 2px;
+  background: var(--grad);
+}
+.timeline-item li strong { color: var(--text); font-weight: 700; }
+.timeline-item .place + p { margin: 0; color: var(--muted); line-height: 1.72; font-size: 0.93rem; }
+
+/* Le nom passe sous le badge (h1 inline-block pour son soulignement) */
+.hero .eyebrow { display: flex; width: fit-content; }
+.hero h1 { display: block; width: fit-content; }
+.hero .lead { margin-top: 18px; }
